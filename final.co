@@ -16,6 +16,9 @@ c) Bộ đếm số tiền - tổng số tiền khách hàng đã đặt.
 Using classicmodel database, please write 1 query that calculates the above 3 indexes for each customer who has ever ordered on the system. The output has the following format: CustomerName, CustomerNumber, Recency, Frequency, Monetary. 
 Sử dụng cơ sở dữ liệu classicmodel viết 1 truy vấn tính 3 chỉ số trên cho mỗi khách hàng đã từng đặt hàng trên hệ thống. Đầu ra có định dạng sau: Tên khách hàng, Số khách hàng, Lần truy cập gần đây, Tần suất, Tiền tệ.
 -- ----------------------------------------------------------------------------------------------------------------------
+-- phải có rồi ====
+USE classicmodels;
+-- cau 1
 -- a
 select * from customers;
 SELECT c.customerName,
