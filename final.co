@@ -1,25 +1,8 @@
-Question 1: RFM Analysis (3 points) RFM model uses sales data to segment a pool of customers based on their purchasing behavior. The resulting customer segments are neatly ordered from most valuable to least valuable. This makes it straightforward to identify best customers.
-Câu hỏi 1: Phân tích RFM (3 điểm) Mô hình RFM sử dụng dữ liệu bán hàng để phân khúc nhóm khách hàng dựa trên hành vi mua hàng của họ. Các phân khúc khách hàng thu được được sắp xếp gọn gàng từ giá trị cao nhất đến ít giá trị nhất. Điều này giúp dễ dàng xác định những khách hàng tốt nhất.
-
-each customer record you must maintain three pieces of information
-mỗi hồ sơ khách hàng bạn phải duy trì ba thông tin
-
-a) Recency-The interval from the date of making statistics (2/6/2005) to the date of the most recent purchase by the customer. 
-a) Lần gần đây nhất - Khoảng thời gian từ ngày thống kê (6/2/2005) đến ngày khách hàng mua hàng gần đây nhất.
-
-
-b) A counter for the Frequency-the number of times the customer has made an order. 
-b) Bộ đếm Tần suất - số lần khách hàng đặt hàng.
-
-c) A counter for the Monetary amount-the total money that the customer has ordered. 
-c) Bộ đếm số tiền - tổng số tiền khách hàng đã đặt.
-Using classicmodel database, please write 1 query that calculates the above 3 indexes for each customer who has ever ordered on the system. The output has the following format: CustomerName, CustomerNumber, Recency, Frequency, Monetary. 
-Sử dụng cơ sở dữ liệu classicmodel viết 1 truy vấn tính 3 chỉ số trên cho mỗi khách hàng đã từng đặt hàng trên hệ thống. Đầu ra có định dạng sau: Tên khách hàng, Số khách hàng, Lần truy cập gần đây, Tần suất, Tiền tệ.
--- ----------------------------------------------------------------------------------------------------------------------
--- phải có rồi ====
+-- phải có rồi ===================================================================
 USE classicmodels;
--- cau 1
--- a
+
+-- cau 1 =========================================================================
+-- a -----------------------------------------------------------------------------
 select * from customers;
 SELECT c.customerName,
 	(SELECT DATEDIFF("2005/06/02", MAX(orderDate))
@@ -27,27 +10,27 @@ SELECT c.customerName,
 	WHERE customerNumber = c.customerNumber
 	) AS Recency	
 FROM customers c;
--- b
+-- b -------------------------------------------------------------------------------
 SELECT c.customerName,
-(SELECT COUNT(*) 
-FROM orders
-WHERE customerNumber = c.customerNumber
-GROUP BY customerNumber
-) AS Frequency  
+	(SELECT COUNT(*) 
+	FROM orders
+	WHERE customerNumber = c.customerNumber
+	GROUP BY customerNumber
+	) AS Frequency  
 FROM customers c;
--- c
+-- c ----------------------------------------------------------------------------------
 SELECT c.customerName,
-(SELECT SUM(quantityOrdered * priceEach)
-FROM orderdetails
-WHERE orderNumber IN (SELECT orderNumber
-				       FROM orders
-			                   WHERE customerNumber = c.customerNumber)
+	(SELECT SUM(quantityOrdered * priceEach)
+	FROM orderdetails
+	WHERE orderNumber IN (SELECT orderNumber
+				FROM orders
+			        WHERE customerNumber = c.customerNumber)
 			                   
 	) AS Monetary
 
 FROM customers c;
 
--- chung 1 bang 
+-- chung 1 bang: 122 dong-----------------------------------------------------------------------
 SELECT c.customerName,
 	(SELECT DATEDIFF("2005/06/02", MAX(orderDate))
 	FROM orders
@@ -55,24 +38,24 @@ SELECT c.customerName,
 	) AS Recency		,
 
 
-(SELECT COUNT(*) 
-FROM orders
-WHERE customerNumber = c.customerNumber
-GROUP BY customerNumber
-) AS Frequency         ,
+	(SELECT COUNT(*) 
+	FROM orders
+	WHERE customerNumber = c.customerNumber
+	GROUP BY customerNumber
+	) AS Frequency         ,
 
  
-(SELECT SUM(quantityOrdered * priceEach)
-FROM orderdetails
-WHERE orderNumber IN (SELECT orderNumber
-				       FROM orders
-			                   WHERE customerNumber = c.customerNumber)
+	(SELECT SUM(quantityOrdered * priceEach)
+	FROM orderdetails
+	WHERE orderNumber IN (SELECT orderNumber
+				FROM orders
+			        WHERE customerNumber = c.customerNumber)
 			                   
 	) AS Monetary
 FROM customers c;
 
 
--- k muon hien thi NULL
+-- k muon hien thi NULL -- 98 dong -------------------------------------------------
 SELECT c.customerName,
 	(SELECT DATEDIFF("2005/06/02", MAX(orderDate))
 	FROM orders
@@ -80,27 +63,114 @@ SELECT c.customerName,
 	) AS Recency		,
 
 
-(SELECT COUNT(*) 
-FROM orders
-WHERE customerNumber = c.customerNumber
-GROUP BY customerNumber
-) AS Frequency         ,
+	(SELECT COUNT(*) 
+	FROM orders
+	WHERE customerNumber = c.customerNumber
+	GROUP BY customerNumber
+	) AS Frequency         ,
 
  
-(SELECT SUM(quantityOrdered * priceEach)
-FROM orderdetails
-WHERE orderNumber IN (SELECT orderNumber
-				       FROM orders
-			                   WHERE customerNumber = c.customerNumber
+	(SELECT SUM(quantityOrdered * priceEach)
+	FROM orderdetails
+	WHERE orderNumber IN (SELECT orderNumber
+				FROM orders
+			        WHERE customerNumber = c.customerNumber
 	) AND (quantityOrdered IS NOT NULL) AND (priceEach IS NOT NULL) 
 			                   
 	) AS Monetary
 FROM customers c where (SELECT SUM(quantityOrdered * priceEach)
 FROM orderdetails
 WHERE orderNumber IN (SELECT orderNumber
-				       FROM orders
-			                   WHERE customerNumber = c.customerNumber
+			FROM orders
+			WHERE customerNumber = c.customerNumber
 	) AND (quantityOrdered IS NOT NULL) AND (priceEach IS NOT NULL) 
 			                   
 	) is not null;
--- 98 dong k co NULL
+-- 98 dong k co NULL -------------------------------------------------------------
+
+-- =================================================================================
+
+-- cau 2
+-- chung 1 bang + having 
+SELECT c.customerName,
+	(SELECT DATEDIFF("2005/06/02", MAX(orderDate))
+	FROM orders
+	WHERE customerNumber = c.customerNumber
+	) AS Recency		,
+
+
+	(SELECT COUNT(*) 
+	FROM orders
+	WHERE customerNumber = c.customerNumber
+	GROUP BY customerNumber
+	) AS Frequency         ,
+
+ 
+	(SELECT SUM(quantityOrdered * priceEach)
+	FROM orderdetails
+	WHERE orderNumber IN (SELECT orderNumber
+				FROM orders
+				WHERE customerNumber = c.customerNumber)
+			                   
+	) AS Monetary
+FROM customers c
+HAVING (Recency <= 5 AND Frequency >= 5) OR Monetary >= 500000;
+
+-- 2 dong 
+-- 'Mini Gifts Distributors Ltd.', '4', '17', '591827.34'
+-- 'Euro+ Shopping Channel', '2', '26', '820689.54'
+-- =====================================================================
+use classicmodels;
+-- =====================================================================
+-- cau 3
+SELECT pl.productLine, pl.textDescription, 
+(select sum(quantityInStock) from products
+where productLine = pl.productLine )
+as totalInStock, 
+(select sum(quantityOrdered) 
+from orderdetails
+where productCode IN (select productCode 
+						from products 
+                        where productLine = pl.productLine)) as totalSold,
+(select totalInStock + totalSold) as totalProduct
+
+FROM productlines pl having totalProduct > 50000
+order by  totalProduct DESC;
+-- productLine, totalInStock, totalSold, totalProduct
+
+-- 'Classic Cars', '219183', '35582', '254765'
+-- 'Vintage Cars', '124880' '22933' '147813'
+-- 'Motorcycles' '69401' '12778' '82179'
+-- 'Planes' '62287' '11872' '74159'
+
+-- cau 4
+-- minh chep tu vo va bien tau 
+select c.customerName, 
+		(select sum(quantityOrdered * priceEach)
+		from orderdetails
+		where orderNumber in (select orderNumber 
+								from orders
+								where customerNumber = c.customerNumber)
+		group by c.customerNumber
+        ) as totalPurchased,
+        
+        ( select sum(amount) from payments
+        where customerNumber = c.customerNumber
+        group by customerNumber
+        ) as totalPaid,
+        
+        (select totalPurchased - totalPaid) as totalDebt
+from customers c
+having totalPurchased <= 100000;
+-- 66 dong co nen cho totalDebt > 0 khong?
+
+-- cau 6 
+-- co
+select pl.productLine,
+	( select sum(quantityInStock * buyPrice) 
+      from products
+      where productLine = pl.productLine 
+	) as inventoryMoney 
+from productlines pl;
+-- 7 dong
+-- inventoryMoney = moneyInStock
