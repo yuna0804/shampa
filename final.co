@@ -124,14 +124,17 @@ use classicmodels;
 -- =====================================================================
 -- cau 3
 SELECT pl.productLine, pl.textDescription, 
-(select sum(quantityInStock) from products
-where productLine = pl.productLine )
-as totalInStock, 
-(select sum(quantityOrdered) 
-from orderdetails
-where productCode IN (select productCode 
-						from products 
-                        where productLine = pl.productLine)) as totalSold,
+	(select sum(quantityInStock) 
+	from products
+	where productLine = pl.productLine 
+	) as totalInStock, 
+
+	(select sum(quantityOrdered) 
+	from orderdetails
+	where productCode IN (select productCode 
+			from products 
+                        where productLine = pl.productLine)
+	) as totalSold,
 (select totalInStock + totalSold) as totalProduct
 
 FROM productlines pl having totalProduct > 50000
