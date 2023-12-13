@@ -164,7 +164,7 @@ select c.customerName,
         
         (select totalPurchased - totalPaid) as totalDebt
 from customers c
-having totalPurchased <= 100000;
+having totalPurchased < 100000; ( dưới 100.000 )
 -- 66 dong co nen cho totalDebt > 0 khong?
 
 -- cau 6 
