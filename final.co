@@ -149,8 +149,8 @@ select c.customerName,
 		(select sum(quantityOrdered * priceEach)
 		from orderdetails
 		where orderNumber in (select orderNumber 
-								from orders
-								where customerNumber = c.customerNumber)
+					from orders
+					where customerNumber = c.customerNumber)
 		group by c.customerNumber
         ) as totalPurchased,
         
