@@ -1,0 +1,830 @@
+LAB 2
+CREATE TABLE
+FOREIGN KEY
+ALTER TABLE employees ADD, MODIFY, DROP
+—------------------------------------------------------------------------------
+
+ CREATE TABLE
+CREATE TABLE [IF NOT EXISTS] table_name(
+<column name><type> [<default value>] [column constraints],
+...
+<column name><type> [<default value>] [column constraints],
+<table constraint>,
+...
+<table constraint>
+) type=table_type;
+—--------------------------------------------------------------------------------
+EX: Create employees table with the primary key constraint is declared as a column-level constraint
+Tạo bảng nhân viên với ràng buộc khóa chính được khai báo là ràng buộc cấp cột
+CREATE TABLE employees ( 
+ employeeNumber int(11) NOT NULL PRIMARY KEY , 
+ lastName varchar(50) NOT NULL, 
+ firstName varchar(50) NOT NULL, 
+ extension varchar(10) NOT NULL, 
+ email varchar(100) NOT NULL, 
+ officeCode varchar(10) NOT NULL, 
+ reportsTo int(11) default NULL, 
+ jobTitle varchar(50) NOT NULL 
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+Or use the above method and name the constraint
+Hoặc sử dụng phương pháp trên và đặt tên cho ràng buộc
+
+CREATE TABLE employees ( 
+ employeeNumber int(11) NOT NULL CONSTRAINT 
+emp_id_pk PRIMARY KEY, 
+ lastName varchar(50) NOT NULL, 
+ firstName varchar(50) NOT NULL, 
+ extension varchar(10) NOT NULL, 
+ email varchar(100) NOT NULL, 
+ officeCode varchar(10) NOT NULL, 
+ reportsTo int(11) default NULL, 
+ jobTitle varchar(50) NOT NULL
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+Example: Create an employees table with the primary key constraint is declared as a 
+table-level constraint instead of column-level constraint.
+Ví dụ: Tạo bảng nhân viên với ràng buộc khóa chính được khai báo là
+ràng buộc cấp độ bảng thay vì ràng buộc cấp độ cột.
+
+CREATE TABLE employees ( 
+ employeeNumber int(11) NOT NULL, 
+ lastName varchar(50) NOT NULL, 
+ firstName varchar(50) NOT NULL, 
+ extension varchar(10) NOT NULL, 
+ email varchar(100) NOT NULL, 
+ officeCode varchar(10) NOT NULL, 
+ reportsTo int(11) default NULL, 
+ jobTitle varchar(50) NOT NULL, 
+ PRIMARY KEY (employeeNumber) 
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+========================================================
+FOREIGN KEY
+CREATE TABLE city (
+city_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+city VARCHAR(50) NOT NULL,
+country_id SMALLINT UNSIGNED NOT NULL,
+last_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP 
+ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY(city_id),
+CONSTRAINT fk_city_country FOREIGN KEY (country_id) 
+REFERENCES country (country_id) ON DELETE RESTRICT ON 
+UPDATE CASCADE
+);
+==========================================================
+3. Alter Table Structure
+Example: Add a salary column of the type INT, not exceeding 10 digits, the constraint 
+must not be blank in the employees data table.
+Ví dụ: Thêm cột lương kiểu INT, không quá 10 chữ số, ràng buộc
+không được để trống trong bảng dữ liệu nhân viên.
+
+ALTER TABLE employees ADD salary INT(10) NOT NULL;
+
+Example: Modify the type of salary column to (15,2) 
+ALTER TABLE employees MODIFY salary decimal(15,2);
+
+Ví dụ: Drop the officeCode column from the employees table
+ALTER TABLE employees DROP officeCode;
+
+DROP TABLE [IF EXISTS] ;
+###############################################################
+LAB 3
+SELECT 
+WHERE
+DISTINCT
+LIMIT
+—----------------------------------------------------------------------------------------
+The classicmodels database is a retailer of scale models of classic cars database. It contains 
+typical business data such as customers, products, sales orders, sales order line items, etc. The 
+sample database includes the following tables:
+• Customers: Store information about customers.
+Khách hàng: Lưu trữ thông tin về khách hàng.
+• Products: Store a list of scale model cars. 
+Sản phẩm: Lưu trữ danh sách các loại xe mô hình quy mô.
+
+• ProductLines: Store a list of product line categories. 
+ ProductLines: Lưu trữ danh sách các loại dòng sản phẩm.
+
+• Orders: Store sales orders placed by customers. 
+• Đơn hàng: Cửa hàng bán các đơn hàng do khách hàng đặt.
+
+• OrderDetails: Store detailed information of each product line of the order. 
+ OrderDetails: Lưu trữ thông tin chi tiết của từng dòng sản phẩm trong đơn hàng.
+
+• Payments: Stores payments made by customers based on their accounts. 
+Thanh toán: Lưu trữ các khoản thanh toán của khách hàng dựa trên tài khoản của họ.
+
+• Employees: Store information about the employees of the organization. 
+ Nhân viên: Lưu trữ thông tin về nhân viên của tổ chức.
+
+• Offices: Stores sales office data. 
+ Văn phòng: Lưu trữ dữ liệu văn phòng bán hàng.
+
+The figure below illustrates the relationship between tables in the database
+—------------------------------------------------------------------------------------------
+Cơ sở dữ liệu classicmodels là nơi bán lẻ các mô hình quy mô của cơ sở dữ liệu ô tô cổ điển. Nó chứa
+dữ liệu kinh doanh điển hình như khách hàng, sản phẩm, đơn đặt hàng, chi tiết đơn hàng trong đơn bán hàng, v.v.
+cơ sở dữ liệu mẫu bao gồm các bảng sau:
+
+1 SELECT
+SELECT column 1, column 2, ...
+FROM tables
+[WHERE selected conditions]
+[GROUP BY group]
+[HAVING group selection conditions]
+[ORDER BY sorted columns]
+[LIMIT quantity limit];
+
+Example: If you need to query all employee information, you can use the following query:
+SELECT * FROM employees;
+Example: If you need to get the employee's first name, last name, job title you can use the 
+following query:
+SELECT lastname, firstname, jobtitle
+FROM employees;
+Example: To retrieve information about Product Codes and Product Names, execute the 
+following query:
+SELECT ProductCode, ProductName
+FROM Products;
+
+2. WHERE
+Example: Company president’s information can be found by the following query:
+Ví dụ: Thông tin về chủ tịch công ty có thể được tìm thấy bằng truy vấn sau:
+SELECT firstName, lastName, email
+FROM employees
+WHERE jobtitle = "President";
+
+ find out the information about the customer number 112 by the following query:
+SELECT *
+FROM customers
+WHERE customerNumber=112;
+
+Example: Get information about the orders of the customer number 181:
+SELECT * 
+FROM orders
+WHERE customerNumber = 181;
+
+3. AND OR
+SELECT * 
+FROM customers
+WHERE country ='USA' AND salesRepEmployeeNumber = 1165;
+Example: Give the information about the orders with a status ‘On Hold’ or ‘In Process’
+SELECT * 
+FROM orders
+WHERE status = 'On Hold' or status ='In Process';
+
+4.IS NULL: find NULL values
+SELECT customerName, salesRepEmployeeNumber
+FROM customers
+WHERE salesRepEmployeeNumber IS NULL;
+
+5.DISTINCT
+Example: To find how many Job Title of all employees, use the DISTINCT keyword in the 
+SELECT statement as follows: 
+SELECT DISTINCT jobTitle FROM employees;
+
+Or you can find out the Product Codes purchased by the query as follows: 
+SELECT DISTINCT productCode FROM orderDetails;
+
+
+6.LIMIT
+Assuming we have a database table with 10,000 records and want to get the first N records, we 
+can use the following query:
+SELECT * FROM table_name
+LIMIT N;
+We can also use LIMIT to retrieve a specified number of records from a specified position: 
+LIMIT S, N;
+In the above query, S is the starting point for index. MySQL determines that the first position 
+to be recorded begins with 0; N is the number of records you want to select.
+Example: Given the information about the names of the first five products in the Product table 
+by using the following query:
+SELECT productName FROM products
+LIMIT 5;
+Or we can retrieve information about the first ten customers currently in Framce by using the 
+following query: 
+SELECT * FROM customers
+WHERE country='France'
+LIMIT 10;
+
+1. Get a list of employees with unspecified reportsTo field. 
+1. Lấy danh sách nhân viên có trường reportTo không xác định.
+SELECT *
+FROM employees
+WHERE reportsTo IS NULL;
+
+
+2. Get a list of CustomerNumber that has made transactions. 
+2. Lấy danh sách Mã số khách hàng đã thực hiện giao dịch.
+SELECT DISTINCT customerNumber
+FROM payments;
+
+
+3. Get a list of orders that have shipped on 18 Jan, 2003. Note: MySQL stores datetime 
+data in the format of year/month/day (YYYY/MM/DD).
+3. Lấy danh sách các đơn hàng đã được giao vào ngày 18/01/2003. Lưu ý: MySQL lưu trữ datetime
+
+SELECT * 
+FROM orders
+WHERE orderDate = '2003-01-18';
+
+4. Get a list of orders with the date placed in April 2005 and have status of ‘Shipped’.
+4. Nhận danh sách các đơn đặt hàng có ngày đặt vào tháng 4 năm 2005 và có trạng thái 'Đã giao hàng'.
+SELECT * 
+FROM orders
+WHERE orderDate >= '2005-04-01' AND orderDate <= '2005-04-30' 
+AND status = "Shipped";
+
+
+5. Get a list of products that are in the ‘Classic Cars’ category
+dữ liệu theo định dạng năm/tháng/ngày (YYYY/MM/DD).
+5. Nhận danh sách các sản phẩm thuộc danh mục ‘Ô tô cổ điển’
+SELECT productName 
+FROM products
+WHERE productLine = "Classic Cars";
+===============================================
+lab 4
+SELECT officeCode, city, phone
+FROM offices
+WHERE country = 'USA' OR country = 'France';
+In this case, we can use IN instead of the above query: 
+SELECT officeCode, city, phone
+FROM offices
+WHERE country IN ('USA','France');
+
+—----------------------------------------------------------------
+SELECT officeCode, city, phone
+FROM offices
+WHERE country NOT IN ('USA','France');
+
+—----------------------------------------------------------------
+SELECT column_list
+FROM table_name
+WHERE column_1 BETWEEN lower_range AND upper_range;
+—--------------------------
+SELECT column_list
+FROM table_name
+WHERE column_1 >= lower_range AND column_1 <= upper_range;
+
+—------------------------------------------
+Example:
+Assuming we want to find all products priced between $ 90 and $ 100, we can execute the 
+following query: 
+
+Ví dụ:
+Giả sử chúng ta muốn tìm tất cả các sản phẩm có giá từ $90 đến $100, chúng ta có thể thực hiện
+truy vấn sau:
+SELECT productCode, ProductName, buyPrice
+FROM products
+WHERE buyPrice BETWEEN 90 AND 100
+ORDER BY buyPrice DESC;
+
+sản phẩm có giá mua ngoài phạm vi 20 và 100, chúng ta có thể sử dụng truy vấn sau
+SELECT productCode, ProductName, buyPrice
+FROM products
+WHERE buyPrice NOT BETWEEN 20 AND 100;
+—------------------------------------------------------------------------
+3. LIKE operator
+LIKE operator allows searching for information based on character comparisons (‘like’). LIKE
+is often used with the SELECT statement in the WHERE clause. MySQL provides two wildcards 
+for constructing patterns, which is % and _.
+• The percentage ( % ) wildcard matches any string of zero or more characters.
+• The underscore ( _ ) wildcard matches any single character.
+
+3. Toán tử THÍCH
+Toán tử THÍCH cho phép tìm kiếm thông tin dựa trên so sánh ký tự (‘like’). GIỐNG
+thường được sử dụng với câu lệnh SELECT trong mệnh đề WHERE. MySQL cung cấp hai ký tự đại diện
+để xây dựng các mẫu, đó là % và _.
+• Ký tự đại diện phần trăm ( % ) khớp với bất kỳ chuỗi nào có 0 hoặc nhiều ký tự.
+• Ký tự đại diện gạch dưới ( _ ) khớp với bất kỳ ký tự đơn nào.
+—-------------------------------------------------------------------------
+Example: Suppose we want to find employees whose first name starts with the letter 'a', it can be done as follows: 
+Ví dụ: Giả sử chúng ta muốn tìm nhân viên có tên bắt đầu bằng chữ 'a', có thể thực hiện như sau:
+SELECT employeeNumber, lastName, firstName
+FROM employees
+WHERE firstName LIKE 'a%';
+Ví dụ: Tìm tất cả nhân viên có họ kết thúc bằng chuỗi ‘on’, chúng ta có thể thực thi
+truy vấn sau:
+SELECT employeeNumber, lastName, firstName
+FROM employees
+WHERE lastName LIKE '%on';
+Ví dụ: Lấy tất cả các nhân viên có họ chứa “on”, chúng ta có thể thực hiện truy vấn sau:
+SELECT employeeNumber, lastName, firstName
+FROM employees
+WHERE lastName LIKE '%on%';
+Ví dụ: Lấy nhân viên có họ không bắt đầu bằng ký tự 'B', thực hiện như
+sau:
+SELECT employeeNumber, lastName, firstName
+FROM employees
+WHERE lastName NOT LIKE 'B%';
+
+Ví dụ: Tìm sản phẩm có mã chứa chuỗi ‘_20’
+SELECT productCode, productName
+FROM products
+WHERE productCode LIKE '%\_20%';
+
+
+
+*tên bắt đầu bằng chữ 'a' (anthony, andy) : firstName LIKE 'a%';
+ kết thúc bằng chuỗi ‘on’ (pateson, thompson):  LIKE '%on';
+chứa “on”,
+ chứa “on” (patterson, bondur, jones) : LIKE '%on%';
+ họ không bắt đầu bằng ký tự 'B': WHERE lastName NOT LIKE 'B%';
+chứa chuỗi ‘_20’: LIKE '%\_20%';
+
+
+
+1. Use the IN operator to find customers living in Nantes and Lyon. Write another way 
+using the OR operator.
+1. Sử dụng toán tử IN để tìm khách hàng sống ở Nantes và Lyon. Viết cách khác
+sử dụng toán tử OR.
+SELECT * FROM customers
+WHERE city IN('Nantes' , 'Lyon');
+
+SELECT * FROM customers
+WHERE city = 'Nantes' OR city = 'Lyon';
+
+
+2. Use BETWEEN to find orders shipped between January 10, 2003 and March 10, 2003. 
+Write another way using the AND operator.
+2. Sử dụng GIỮA để tìm các đơn hàng được vận chuyển từ ngày 10 tháng 1 năm 2003 đến ngày 10 tháng 3 năm 2003. Viết cách khác bằng toán tử AND.
+SELECT * FROM orders
+WHERE shippedDate BETWEEN "2003/01/01" AND "2003/03/10";
+
+SELECT * FROM orders
+WHERE shippedDate >= "2003/01/01" AND shippedDate <= "2003/03/10";
+
+
+
+
+3. Use LIKE to get product lines that its name contain the word ‘CARS’.
+3. Sử dụng THÍCH để lấy các dòng sản phẩm có tên chứa từ ‘CARS’.
+SELECT * FROM productlines
+WHERE productLine LIKE '%CARS%';
+
+
+
+
+4. Get 10 products with the largest quantity in stock
+4. Nhận 10 sản phẩm có số lượng lớn nhất trong kho
+SELECT * FROM products
+ORDER BY quantityInStock DESC 
+LIMIT 10;
+#####################################################
+LAB 5 
+String processing function: Substring, Concat: LINK, Replace
+- Conditional function IF
+- LAST_INSERT_ID function
+- Time processing function: DATEDIFF, ADDDATE, EXTRACT
+1. SUBSTRING
+SUBSTRING(str, pos);
+SUBSTRING(str FROM pos);
+SUBSTRING(str, pos, len);
+SUBSTRING(str FROM pos FOR len);
+SELECT substring('MySQL Substring',7); 
+Result: Substring
+SELECT substring('MySQL Substring' FROM 7); 
+Result: Substring
+SELECT substring('MySQL Substring',7,3); 
+Result: Sub
+SELECT substring('MySQL Substring' FROM 7 FOR 3); 
+Result: Sub
+SELECT substring('MySQL Substring',-9);
+Result: Substring
+—------------------------------------------------------------------------
+2. CONCAT
+Ví dụ: Để hiển thị tên đầy đủ đầu tiên của người liên hệ của khách hàng, chúng ta có thể sử dụng hàm concat để nối họ và tên và dấu phân cách giữa chúng. Đây là truy vấn
+SELECT CONCAT(contactLastname,', ',contactFirstname) 
+fullname
+FROM customers;
+
+Smith, Carine
+
+cho phép chúng ta nối hai hoặc nhiều
+chuỗi có dấu phân cách được xác định trước
+SELECT CONCAT_WS('; ', contactLastname, contactFirstname) 
+fullname
+FROM customers;
+
+Smith; Carine
+
+SELECT CONCAT_WS(char(10), 
+ CONCAT_WS(' ',contactLastname,contactFirstname), 
+addressLine1, 
+addressLine2,
+ CONCAT_WS(' ',postalCode,city), country,
+ CONCAT_WS(char(10),'')) AS Customer_Address
+FROM customers;
+—------------------------------------------------------------------------
+
+4. IF 
+IF(expr, if_true_expr, if_false_expr)
+
+Ví dụ: Trong bảng Khách hàng, không phải khách hàng nào cũng có thông tin trạng thái. Vì vậy, khi chúng tôi chọn khách hàng, thông tin trạng thái sẽ hiển thị các giá trị NULL, không phải quan trọng cho mục đích báo cáo.
+Chúng ta có thể sử dụng IF để hiển thị trạng thái của khách hàng là N/A nếu nó là NULL như sau:
+SELECT customerNumber,
+ customerName,
+ IF(state IS NULL,'N/A',state) state,
+ country
+FROM customers;
+
+Ví dụ: hàm IF cũng rất hữu ích với các hàm tổng hợp. Giả sử nếu chúng ta muốn
+biết có bao nhiêu đơn hàng đã được Vận chuyển và Hủy cùng một lúc, chúng ta có thể sử dụng IF để tính là sau:
+SELECT SUM(IF(status = 'Shipped',1,0)) AS Shipped,
+SUM(IF(status = 'Cancelled',1,0)) AS Cancelled
+FROM orders;
+—------------------------------------------------------------------------
+
+6. DATEDIFF
+SELECT DATEDIFF('2011-08-17','2011-08-17'); 
+Result: 0 day
+SELECT DATEDIFF('2011-08-17','2011-08-08'); 
+Result: 9 days
+SELECT DATEDIFF('2011-08-08','2011-08-17');
+Result: -9 days
+
+Example: To calculate the number of days left between the shipping date and the required date to place an order, we use DATEDIFF as follows:
+
+Ví dụ: Để tính số ngày còn lại giữa ngày vận chuyển và thời gian yêu cầu
+ngày để đặt hàng, chúng tôi sử dụng DATEDIFF như sau:
+
+ SELECT orderNumber,
+DATEDIFF(requiredDate,shippedDate) AS daysLeft
+FROM orders
+ORDER BY daysLeft DESC;
+—--------------------------------------------------------------------------------
+Example: Get the date 30 days after the current date and time:
+Ví dụ: Lấy ngày sau ngày giờ hiện tại 30 ngày:
+SELECT ADDDATE(NOW(), INTERVAL 30 DAY); 
+
+Example: Get the orders within 30 days from May 1, 2005 
+Ví dụ: Nhận đơn hàng trong vòng 30 ngày kể từ ngày 01/05/2005
+SELECT * 
+FROM orders
+WHERE orderDate>= '2005-5-1' AND orderDate < ADDDATE('2005-5-
+1', INTERVAL 30 DAY); 
+—----------------
+Example: Get the orders from May 1, 2005 30 days before to May 1, 2005 
+Ví dụ: Nhận đơn hàng từ ngày 01/05/2005 trước 30 ngày đến ngày 01/05/2005
+SELECT * 
+FROM orders
+WHERE orderDate<= '2005-5-1' AND orderDate > ADDDATE('2005-5-
+1', INTERVAL -30 DAY); 
+—-------------------
+Example: Get the orders placed in 2005:
+Ví dụ: Lấy đơn hàng đặt năm 2005:
+SELECT * 
+FROM orders
+WHERE EXTRACT(YEAR FROM orderDate) = 2005
+—---------------------
+Example: Get the orders placed in May 2005:
+Ví dụ: Nhận đơn đặt hàng tháng 5 năm 2005:
+SELECT * 
+FROM orders
+WHERE EXTRACT(YEAR FROM orderDate) = 2005 and EXTRACT(MONTH 
+FROM orderDate) = 5; 
+
+
+ Practical exercises:
+1. Get the first 50 characters of the product description, naming it ‘Title of products’.
+1. Lấy 50 ký tự đầu tiên của mô tả sản phẩm, đặt tên là ‘Tiêu đề sản phẩm’.
+-- 1
+-- SQL k co 0 chi co chi so 1
+select substring(textDescription from 1 for 50) as 'Title of products'
+from productlines;
+
+có lấy kí tự = substring
+
+2. Get the descriptions of employees in the format ‘Fullname, jobTitle’.
+2. Nhận mô tả về nhân viên ở định dạng ‘Họ tên, Chức danh’.
+sử dụng nối = concat
+3 đối tượng last first jobTitle
+concat ws
+
+-- 2
+select 
+concat_ws(',',concat_ws(' ', firstName, lastName), jobTitle)
+from employees;
+
+
+
+
+
+
+
+4. Get 5 orders shipped sooner than the required date.
+4. Nhận 5 đơn hàng được vận chuyển sớm hơn ngày yêu cầu.
+-- 4
+-- moc 2 - moc1 > 0
+select orderDate, shippedDate, DATEDIFF(shippedDate, orderDate) as soNgay
+from orders
+where status = 'Shipped' (phai co Shipped vi k thi NULL do don hang da ship dau, ship roi moi tinh duoc)
+order by soNgay ASC;
+
+
+5. Get the orders in May 2005 with an unspecified shipped date
+5. Nhận đơn hàng vào tháng 5 năm 2005 với ngày giao hàng không xác định
+-- 5
+ select orderNumber, orderDate
+from orders
+where month(orderDate) = 5
+and year(orderDate) = 2005;
+
+
+
+#######################################################
+LAB 6 
+- Group Functions: SUM, AVG, MAX, MIN, COUNT
+- GROUP BY clause
+- HAVING clause
+
+
+Ví dụ: Nếu muốn biết có bao nhiêu đơn hàng trong mỗi nhóm trạng thái, chúng ta có thể sử dụng
+Hàm COUNT như sau:
+SELECT status, COUNT(*)
+FROM orders
+GROUP BY status;
+
+Ví dụ: Muốn biết mỗi dòng sản phẩm có bao nhiêu sản phẩm:
+SELECT productLine, COUNT(*)
+FROM products
+GROUP BY productline;
+
+
+Example: To get the total amount for each product sold, we just need to use the SUM function and the product group. Here is the query
+Ví dụ: Để tính tổng số tiền của từng sản phẩm bán ra, chúng ta chỉ cần sử dụng hàm SUM
+và nhóm sản phẩm. Đây là truy vấn
+SELECT productCode, SUM(priceEach * quantityOrdered) total
+FROM orderdetails
+GROUP by productCode;
+
+ORDER BY total DESC;  sx theo tăng dần
+=> tính tổng số tiền của từng sản phẩm bán ra, SELECT productCode, SUM(priceEach * quantityOrdered) total, từ orderdetails gby productCode
+
+Example: Use the GROUP BY clause to get all orders, the number of items sold, and the total value of each order as follows:
+
+Ví dụ: Sử dụng mệnh đề GROUP BY để lấy tất cả đơn hàng, số lượng mặt hàng đã bán và tổng số giá trị từng đơn hàng như sau:
+SELECT ordernumber, tất cả đơn hàng
+SUM(quantityOrdered) AS itemsCount, ~số lượng mặt hàng đã bán 
+SUM(priceEach * quantityOrdered) AS total ~tổng số giá trị 
+FROM orderdetails
+GROUP BY ordernumber; ~ từng đơn hàng
+ HAVING total > 1000; ~ total value greater than $1000 
+Example: If we want to know that orders total greater than $1000 and have more than 600 items in them, we can use the following query:
+Ví dụ: Nếu chúng tôi muốn biết tổng số đơn hàng lớn hơn 1000 USD và có hơn 600 mặt hàng trong đó, chúng ta có thể sử dụng truy vấn sau:
+
+SELECT ordernumber,
+sum(quantityOrdered) AS itemsCount, mặt hàng
+sum(priceeach) AS total tổng số đơn hàng
+FROM orderdetails
+GROUP BY ordernumber
+HAVING total > 1000 AND itemsCount > 600;
+
+—--------------------------------------------------------------------------
+ Practice Exercises:
+1. Get the names of the cities and the number of customers in each city.
+1. Lấy tên các thành phố và số lượng khách hàng ở mỗi thành phố.
+mỗi thành phố - groupby theo tên thành phố 
+select city, count(customerNumber)
+from customers
+group by city;
+
+
+
+2. Get the number of orders in March 2005. Get the number of orders for each month in 
+2005.
+2. Lấy số lượng đơn hàng tháng 3 năm 2005. 
+số lượng đơn hàng = count(orderNumber)
+tháng 3 month(orderDate) = 3
+năm 2005 year(ỏderDate) =2005
+-- 2: 13 don la dung
+select count(orderNumber)
+from orders
+where month(orderDate) = 3 
+and year(orderDate) = 2005;
+
+
+Lấy số lượng đơn hàng mỗi tháng trong 2005
+select month(orderDate) as thang,
+count(orderNumber)
+from orders
+where year(orderDate) = 2005
+group by thang;
+
+
+mỗi tháng - group by theo tháng 
+cố định điều kiện năm 2005 ở where
+
+mỗi năm mỗi tháng có bao nhiêu đơn hàng
+bao nhiêu đơn hàng: count(orderNumber)
+mỗi năm gby theo năm
+mỗi tháng gby theo tháng
+
+-- 2.3: dung 29 ban ghi
+select month(orderDate) as thang,
+year(orderDate) as nam,
+count(orderNumber)
+from orders
+group by thang, nam;
+
+3. Get the 10 order numbers that have the most valuable price.
+ko chắc lắm
+3. Lấy 10 số đơn hàng có giá trị cao nhất.
+số đơn hàng lại còn giá trị orderdetails
+lấy 10 đơn hàng = limit 10, k cần max
+
+select orderNumber,  value 
+from orderdetails
+limit 10
+
+value = quantityOrdered*priceEach
+
+-- 3 ko chac dung k
+select orderNumber, (quantityOrdered * priceEach) as value 
+from orderdetails
+order by value desc
+limit 10;
+
+
+4. Get the product line and the total quantity in stock of that group.
+4. Lấy dòng sản phẩm và tổng số lượng tồn kho của nhóm đó.
+
+dòng sản phẩm + số lượng tồn kho từ bảng products
+của nhóm đó = group by productLine
+ tổng số lượng tồn kho = sum ( quantityInStock)
+
+-- 4
+select productLine,
+sum(quantityInStock)
+from products
+group by productLine;
+
+
+5. Get the customer number and the total amount that customer paid
+5. Lấy mã số khách hàng và tổng số tiền khách hàng đã thanh toán
+mã khách hàng + tổng số tiền khách hàng thanh toán sẽ lấy từ bảng payments
+
+tổng số tiền khách thanh toán = sum(amount) 
+tất cả theo mỗi khách hàng = gby customerNumber 
+-- 5
+select customerNumber,
+sum(amount)
+from payments
+group by customerNumber;
+
+lab 7
+Practical Exercises:
+1. Get the information about the employees and the office where they work.
+1. Nhận thông tin về nhân viên và văn phòng nơi họ làm việc.
+thông tin nhân viên từ bảng employee
+văn phòng họ làm việc 
+
+select * 
+from employees
+natural join offices
+
+2. Get the information about the items that noone has ordered.
+2. Nhận thông tin về những món hàng chưa có ai đặt hàng.
+thông tin món hàng : 
+chưa ai đặt : orders = orderNumber is null
+có cả món hàng + order = orderdetails
+muốn thông tin đầy đủ món hàng phải link products
+
+
+select p.productCode, p.productLine, p.productName
+from products p
+left join orderdetails od
+on p.productCode = od.productCode
+
+where od.orderNumber is null;
+
+
+3. Get the information about orders in March 2003 (including orderDate, requiredDate, 
+Status) and total value of orders.
+3. Lấy thông tin về các đơn hàng trong tháng 3 năm 2003 (bao gồm ngày đặt hàng, ngày bắt buộc, ngày đặt hàng,Status) và tổng giá trị đơn hàng.
+
+-- 3
+select o.orderNumber, 
+	sum(od.quantityOrdered * od.priceEach) as totalOrder,
+    o.status
+
+from orders o inner join orderdetails od
+on o.orderNumber = od.orderNumber
+where month(o.orderDate) = 3 and year(o.orderDate) = 2003
+group by o.orderNumber; ~ total tieenf gom theo từng đơn hàng
+
+
+
+=> 6 bản ghi
+
+phân tích 1 chút 
+total các đơn bị hủy:
+tính tổng nên k chia đơn, k cần group by 
+where o.status = cancel 
+
+
+
+4. Get the information about the product lines and the total number of products of that 
+product line, arranged in descending order of quantity.
+4. Lấy thông tin về dòng sản phẩm và tổng số lượng sản phẩm của dòng sản phẩm đó
+dòng sản phẩm, sắp xếp theo thứ tự số lượng giảm dần.
+
+thông tin dòng sản phẩm: bản productlines
+số lượng sảnh phẩm: count(productCode) 
+của dòng sản phẩm đó: group by productLine ( nhóm theo dòng sản phẩm)
+
+b1 : select productLine, 
+count(productCode)
+from productlines, products;
+b2: thêm tên bảng
+select pl.productLine, 
+count(p.productCode)
+from productlines pl, products p;
+b3 thêm điều kiện
+-- 4
+select pl.productLine, 
+count(p.productCode)
+from productlines pl, products p
+where pl.productLine = p.productLine ( vì 2 bảng chung productLine)
+group by pl.productLine; (của từng dòng sản phẩm)
+
+
+5. Get the name of the customer and the total amount they purchased
+Bài tập thực hành:
+5. Lấy tên khách hàng và tổng số tiền họ đã mua
+tên khách hàng -> tổng tiền họ đã mua 
+tên khách hàng từ customers
+-> sản phẩm họ mua -> orders
+-> giá từng sản phẩm (để * với lượng mua) từ orderdetails
+
+
+th1: số tiền đã mua =  quantityOrdered * priceEach (từ orderdetails)
+th2: số tiền đã trả = sum(amount) ( từ payments)
+
+-- 5
+select c.customerNumber, c.customerName, sum(od.quantityOrdered * od.priceEach) as totalPurchased
+from customers c, orders o, orderdetails od
+
+where c.customerNumber = o.customerNumber
+and o.orderNumber = od.orderNumber
+group by c.customerNumber;
+
+select c.customerNumber , c.customerName,
+sum(p.amount) as totalPaid
+from customers c, payments p
+where c.customerNumber = p.customerNumber
+group by c.customerNumber;
+
+lab 8
+Ví dụ: Đưa ra các đơn đặt hàng gần đây nhất
+SELECT * FROM orders
+WHERE orderDate = (SELECT MAX(orderDate) FROM orders)
+
+
+Ví dụ: Nhận sản phẩm không có trong bất kỳ đơn hàng nào. Truy vấn con bên trong sẽ trả về mã sản phẩm có trong bảng chi tiết đơn hàng. Truy vấn con bên ngoài sẽ trả về sản phẩm mã sản phẩm không có trong danh sách mã sản phẩm.
+SELECT * 
+FROM products 
+WHERE productCode NOT IN
+(SELECT productCode 
+FROM orderdetails
+);
+
+Ví dụ: Lấy sản phẩm có trong đơn hàng
+SELECT * FROM products 
+WHERE productCode IN
+ (SELECT productCode 
+FROM orderdetails
+);
+
+Ví dụ: Lấy sản phẩm có số lượng tồn kho lớn hơn số lượng trung bình của
+sản phẩm cùng dòng sản phẩm.
+SELECT * FROM products p
+WHERE quantityInStock >
+(SELECt avg(quantityInStock) 
+FROM products
+WHERE productLine = p.productLine
+);
+Ví dụ: Lấy sản phẩm có trong đơn hàng. Sử dụng toán tử EXISTS để kiểm tra
+sự tồn tại.
+SELECT * FROM products as p
+WHERE exists 
+ (SELECT productCode 
+FROM orderdetails 
+WHERE productCode = p.productCode);
+
+Ví dụ: Mỗi dòng đơn hàng ghi tên sản phẩm
+SELECT orderNumber, quantityOrdered,
+(SELECT productName FROM products WHERE productCode = 
+o.productCode) as productName
+FROM orderdetails o;
+
+Ví dụ: Với mỗi sản phẩm, hãy ghi tổng số sản phẩm đã được đặt hàng
+SELECT productName,
+(SELECT sum(quantityOrdered) FROM orderdetails WHERE 
+productCode = p.productCode) as totalQuantityOrderd 
+FROM products as p
+ORDER BY totalQuantityOrderd desc
+SELECT productName, totalQuantityOrderd
+FROM products, 
+(SELECT productCode, SUM(quantityOrdered) as 
+totalQuantityOrderd FROM orderdetails group by productCode) AS 
+productOrder
+WHERE products.productCode = productOrder.productCode;
+
