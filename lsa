@@ -1,0 +1,372 @@
+2. Đưa ra thông tin khách hàng thanh toán cuối cùng
+SELECT c.customerNumber, c.customerName 
+FROM customers c 
+INNER JOIN payments p ON c.customerNumber = p.customerNumber 
+WHERE paymentDate = (SELECT MAX(paymentDate) 
+FROM payments p)
+—--------------------------
+SELECT c.customerNumber, c.customerName
+FROM customers c
+WHERE c.customerNumber = (
+    SELECT p.customerNumber
+    FROM payments p
+    ORDER BY p.paymentDate DESC
+    LIMIT 1
+);
+
+khach hang thanh toan cuoi cung: tức là khách hàng có paymentDate (bảng payment) max
+thông tin khách hàng ( từ bảng customers)
+nối với nhau qua inner join (customerNumber = customerNumber)
+
+6. Tổng tiền của đơn hàng cuối cùng của mỗi khách hàng
+FROM customers c, orderdetails od 
+WHERE od.orderNumber IN (SELECT o.orderNumber 
+FROM orders o  
+WHERE o.customerNumber = c.customerNumber 
+AND o.orderDate = (SELECT MAX(orderDate) 
+FROM orders o2 
+WHERE o2.customerNumber = c.customerNumber)) 
+GROUP BY customerNumber
+
+=== chua hieu === 
+3. Đưa ra thông tin (Tên mã, số tiền đã mua, số tiền đã trả, số tiền còn nợ và số đơn hàng đã thực hiện) của khách hàng VIP, biết khách hàng VIP phải thoả mãn cùng lúc 2 điều kiện:
+- Mua hàng ít nhất 5 lần - Nợ ít hơn 50000
+
+SELECT c.customerName, c.customerNumber, 
+(SELECT SUM(od.priceEach * od.quantityOrdered) AS totalBuy 
+	FROM orders o JOIN orderdetails od 
+	ON o.orderNumber = od.orderNumber 
+	WHERE o.customerNumber = c.customerNumber) AS totalbuy, 
+	
+(SELECT SUM(amount) AS totalPay 
+	FROM payments p 
+   WHERE p.customerNumber = c.customerNumber) AS totalpay, 
+    
+(SELECT totalbuy - totalpay) AS debt, 
+  (SELECT COUNT(orderNumber) 
+   FROM orders o 
+   WHERE o.customerNumber = c.customerNumber 
+   GROUP BY customerNumber) AS countOrdered 
+FROM customers c 
+WHERE c.customerNumber IN (SELECT customerNumber FROM orders) 
+HAVING debt < 50000 AND countOrdered >= 5;
+
+mua ít nhất 5 lần: count(orderNumber) từ orders <=5
+nợ ít hơn 50.000 : debt = totalPurchase - totalPaid 
+===CHECK===
+4. Đưa ra thông tin nhân viên chưa bán được đơn hàng nào
+SELECT e.employeeNumber, 
+   CONCAT(lastName, ' ', firstName) AS employeeName 
+FROM employees e 
+LEFT JOIN customers c 
+ON c.salesRepEmployeeNumber = e.employeeNumber 
+WHERE c.salesRepEmployeeNumber IS NULL
+
+
+nhân viên CHƯA BÁN ĐƯỢC ĐƠN HÀNG NÀO = sales Rep Employee Number is Null
+—------------------------------------------------------------------
+SELECT e.employeeNumber, CONCAT(e.lastName, ' ', e.firstName) AS employeeName
+FROM employees e
+WHERE e.employeeNumber NOT IN (
+    SELECT DISTINCT salesRepEmployeeNumber
+    FROM customers
+)
+
+
+5. Tính tiền lãi của mỗi đơn hàng (tiền lãi là tổng số tiền bán ra + tiền mua vào)
+SELECT orderNumber, 
+quantityOrdered * priceEach - quantityOrdered * buyPrice AS income 
+FROM orderdetails od 
+INNER JOIN products p ON od.productCode = p.productCode 
+GROUP BY orderNumber
+—-----------------------------------
+SELECT od.orderNumber, SUM(od.quantityOrdered * (od.priceEach - p.buyPrice)) AS income
+FROM orderdetails od
+INNER JOIN products p ON od.productCode = p.productCode
+GROUP BY od.orderNumber;
+—-------------------------------------------------
+tiền lãi = tổng tiền bán ra - tổng tiền mua vào (mỗi đơn hàng)
+	= quantityOrdered * priceEach - quantityOrdered * buyPrice
+
+buyPrice = tiền mua vào
+priceEach = giá bán (orderdetails)
+
+7. Viết câu lệnh hiển thị mã của các sản phẩm cần xử lý hoàn kho và số lượng hoàn kho của từng sản phẩm (gợi ý: lấy thông tin từ các đơn hàng bị hủy (có status là ‘cancelled’)
+
+sản phẩm cần xử lí hoàn kho là gì?=>  san phẩm có status = cancel 
+số lượng hoàn kho là gì? => số lượng là quantityOrdered 
+			     => số lượng hoàn kho : quantityOrdered có satus cancel
+thông tin từ đơn hàng bị hủy (status = cancel)
+
+productCode từ bảng product
+quantityOrdered từ bảng orderdetails 
+status cancel từ bảng orders
+tìm thuộc tính chung nối bảng 
+—--------------------------------------------------------------------------------------
+SELECT p.productCode, 
+SUM(od.quantityOrdered) AS totalRefund 
+FROM products p 
+INNER JOIN orderdetails od ON p.productCode = od.productCode 
+INNER JOIN orders o ON od.orderNumber = o.orderNumber 
+WHERE o.status = 'cancelled' 
+GROUP BY p.productCode 
+ORDER BY p.productCode;
+
+—-----------------------------
+
+? hình như order by hơi thừa 
+
+
+8. Viết câu lệnh đưa ra tên cùng với số tiền đã mua, đã trả và số tiền còn nợ của các khách hàng nhỏ, tức là có tổng số tiền đã mua ít hơn 100.000$ trong vở có rồi 
+SELECT c.customerName, 
+(SELECT SUM(od.priceEach * od.quantityOrdered) AS totalBuy 
+FROM orders o 
+INNER JOIN orderdetails od  ON o.orderNumber = od.orderNumber  
+WHERE o.customerNumber = c.customerNumber) AS totalbuy,  
+(SELECT SUM(amount) AS totalPay 
+FROM payments p 
+WHERE p.customerNumber = c.customerNumber) AS totalpay,  
+(SELECT totalbuy - totalpay) AS debt 
+FROM customers c 
+WHERE c.customerNumber IN (SELECT customerNumber FROM orders) 
+HAVING totalbuy < 100000;
+
+9. Viết  câu lệnh đưa ra thông tin của các khách hàng chưa từng thanh toán. 
+SELECT * 
+FROM customers 
+WHERE customerNumber NOT IN (SELECT customerNumber FROM payments);
+
+khách hàng chưa từng thanh toán 
+tức là không có customerNumber trong bảng payments
+
+10.Viết 01 câu lệnh để đưa ra thông tin của các văn phòng, bao gồm: mã, địa chỉ (lấy thông tin từ addressLine 1 và addressLine2), điện thoại và tổng số nhân viên của từng văn phòng.
+SELECT o.officeCode, CONCAT(IF(o.addressLine1 IS NULL, '', o.addressLine1), ' ',  IF(o.addressLine2 IS NULL, '', o.addressLine2)) AS officeAddress, o.phone, COUNT(e.employeeNumber) AS totalEmployees FROM offices o INNER JOIN employees e ON o.officeCode = e.officeCode GROUP BY o.officeCode;
+
+11. Đưa ra thông tin về các nhân viên và tên văn ph ng nơi họ làm việc.
+SELECT employeeNumber, CONCAT(lastName, ' ', firstName) as employeeName, email, jobTitle, postalCode,CONCAT(addressLine1, ' ', addressLine2) as officeAddress FROM employees INNER JOIN offices USING(officeCode);
+12. Đưa ra thông tin về các mặt hàng chưa có ai đặt mua. 
+SELECT * 
+FROM products 
+LEFT JOIN orderdetails USING(productCode) 
+WHERE orderNumber IS NULL;
+
+
+cách mặt hàng chưa ai mua = có orderNumber là null 
+== check cách khác ==
+
+13. Đưa ra thông tin về các đơn hàng trong tháng 3/2003 (gồm orderDate, requiredDate, Status) và tổng giá trị của đơn hàng.
+SELECT orderDate, requiredDate, status, SUM(priceEach * quantityOrdered) AS totalPrice FROM orders
+INNER JOIN orderdetails USING(orderNumber) 
+WHERE YEAR(orderDate) = 2003 AND MONTH(orderDate) = 3 
+GROUP BY orderNumber;
+—----
+INNER JOIN orderdetails od ON o.orderNumber = od.orderNumber
+
+tổng giá trị mỗi đơn hàng 
+sum( quantityOrdered * priceEach) group by orderNumber 
+
+14. Đưa ra thông tin về các d ng sản phẩm và số lượng sản phẩm của d ng sản phẩm đó. Sắp xếp theo thứ tự số lượng giảm dần. 
+SELECT productlines.productLine, productlines.textDescription, SUM(quantityInStock) AS quantityStock FROM productlines INNER JOIN products USING(productLine) GROUP BY productlines.productLine ORDER BY quantityStock DESC;
+
+dòng sản phẩm và số lượng sản phẩm của dòng sản phẩm
+productLine, sum (quantityInStock)
+
+group by productLine 
+
+SELECT
+    productlines.productLine,
+    productlines.textDescription,
+    SUM(quantityInStock) AS quantityStock
+FROM
+    productlines
+INNER JOIN
+    products USING (productLine)
+GROUP BY
+    productlines.productLine, productlines.textDescription
+ORDER BY
+    quantityStock DESC;
+
+—---------------------------------------------------------------
+subquery
+
+SELECT
+    pl.productLine,
+    pl.textDescription,
+    (
+        SELECT SUM(p.quantityInStock)
+        FROM products p
+        WHERE p.productLine = pl.productLine
+    ) AS quantityStock
+FROM
+    productlines pl
+ORDER BY
+    quantityStock DESC;
+
+
+15. Đưa ra tên khách hàng và số tiền hàng họ đã mua 
+SELECT customers.customerName, SUM(amount) AS totalPay FROM customers INNER JOIN payments USING(customerNumber) GROUP BY customers.customerName;
+
+tên khách hàng từ bảng customers
+số tiền họ đã mua = totalPaid = sum(amount) của payments group by cusNum 
+
+17. Sử dụng truy vấn con đưa ra các thông tin về các đơn hàng trong tháng gần nhất (sử dụng thông tin từ bảng orders). 
+có trong vở rồi 
+
+SELECT * FROM orders WHERE YEAR(orderDate) = EXTRACT(YEAR FROM (SELECT MAX(orderDate) FROM orders)) AND MONTH(orderDate) = EXTRACT(MONTH FROM (SELECT MAX(orderDate) FROM orders));
+
+18. Sử dụng truy vấn con đưa ra thông tin về các đơn hàng và tổng giá trị đơn hàng (sử dụng thông tin từ bảng orders và orderdetails).
+SELECT *, SUM(quantityOrdered * priceEach) AS total FROM orders INNER JOIN orderdetails USING(orderNumber) GROUP BY orderNumber;
+
+thông tin đơn hàng: từ orders
+tổng giá trị đơn hàng = quantityOrder * priceEach (từ orderdetails) 
+theo từng đơn hàng  = group by orderNum
+
+19. Đưa ra tên khách hàng và số tiền họ còn nợ.
+SELECT c.customerName, (SELECT SUM(od.priceEach * od.quantityOrdered) FROM orders o JOIN orderdetails od ON o.orderNumber = od.orderNumber WHERE o.customerNumber = c.customerNumber) AS totalbuy, (SELECT SUM(amount) FROM payments p WHERE p.customerNumber = c.customerNumber) AS totalpay, (SELECT totalbuy - totalpay) AS debt FROM customers c WHERE c.customerNumber IN (SELECT customerNumber FROM orders);
+
+tên khách hàng ( từ bảng customers)
+số tiền họ còn nợ = totalPurchase - totalPaid và group by cusNum
+
+20. Đưa ra các sản phẩm có mã không nằm trong đoạn [P10, P14] và đem về lợi nhuận ít nhất là 25% nếu sử dụng giá bán theo đề xuất của nhà sản xuất (MSRP).
+SELECT * FROM products WHERE productCode NOT LIKE 'P10%' AND productCode NOT LIKE 'P11%' AND productCode NOT LIKE 'P12%' AND productCode NOT LIKE 'P13%' AND productCode NOT LIKE 'P14%' AND MSRP / buyPrice >= 1.25
+
+????
+
+
+21. Viết 01 câu lệnh để đưa ra thông tin (gồm tên dòng sản phẩm, thông tin mô tả và tổng số sản phẩm đã bán được) của dòng sản phẩm được mua ít nhất và dòng sản phẩm được mua nhiều nhất. Hiển thị thêm một cột “note”, điền “Worst Buy” cho dòng sản phẩm được mua ít nhất, và “Best Buy” cho dòng sản phẩm được mua nhiều nhất.
+(SELECT pl.productLine, pl.textDescription, SUM(od.quantityOrdered) AS totalSold, 
+'Worst buy' AS note 
+FROM productlines pl 
+LEFT JOIN products p ON pl.productLine = p.productLine 
+LEFT JOIN orderdetails od ON p.productCode = od.productCode 
+GROUP BY pl.productLine 
+ORDER BY totalSold ASC LIMIT 1
+)  
+UNION 
+(SELECT pl.productLine, pl.textDescription, SUM(od.quantityOrdered) AS totalSold, 
+'Best buy' AS note 
+FROM productlines pl 
+LEFT JOIN products p ON pl.productLine = p.productLine 
+LEFT JOIN orderdetails od ON p.productCode = od.productCode 
+GROUP BY pl.productLine ORDER BY totalSold DESC LIMIT 1)
+
+dòng sản phẩm mua ít nhất = limit 1 của sắp xếp tăng dần asc 
+dòng sản phẩm mua nhiều nhất = limit 1 của sắp xếp giảm dần desc
+
+tên dòng sản phẩm = productLine 
+thông tin mô tả = textDesscription 
+tổng số sản phẩm đã mua = sum (quantityOrdered từ orderdetails)
+
+cột note hiển thị Worst buy va Best buy = 'Worst buy' AS note union 'Best buy' AS note 
+
+
+22. Truy vấn đưa ra tên mặt hàng bán chạy nhất năm 2005.
+SELECT productCode, productName, orderDate, SUM(quantityOrdered) AS total FROM products INNER JOIN orderdetails USING(productCode) INNER JOIN orders USING(orderNumber) WHERE YEAR(orderDate) = 2005 GROUP BY productCode ORDER BY total DESC LIMIT 1;
+
+mặt hàng bán chạy nhất năm 2005
+= limit 1 của sắp xếp sum(quantityOrdered) as total giảm dần 
+tức là số lượng quantityOrder max 
+với điều kiện year(orderDate) = 2005
+
+tên mặt hàng, tức là nhóm theo mặt hàng, nhóm theo productCode
+
+
+23.Truy vấn đưa ra tên khách hàng có tổng tiền mua nhiều nhất trong năm 2005.
+SELECT customerNumber, customerName, orderDate, SUM(quantityOrdered * priceEach) AS amount FROM customers INNER JOIN orders USING(customerNumber) INNER JOIN orderdetails USING(orderNumber) WHERE YEAR(orderDate) = 2005 GROUP BY customerNumber ORDER BY amount DESC LIMIT 1;
+
+tổng tiền mua nhiều nhất trong năm 2005.
+limit 1 của sx giảm dần sum(quantityOrdered * priceEach) group by cusNum
+tức là lấy ra cusNum có sum(quantityOrdered * priceEach) max
+điều kiện: where year(orderDate) = 2005
+
+24. Truy vấn trả về thông tin sản phẩm có mức giá nhập lớn hơn mức giá nhập trung bình của tất cả sản phẩm trong kho.
+SELECT productCode, productName, buyPrice FROM products WHERE buyPrice > (SELECT AVG(buyPrice) FROM products)
+
+mức giá nhập = buyPrice
+mức giá nhập trung bình của tất cả sản phẩm trong kho = (select avg(buyPrice) from products)
+
+> ở where 
+
+25. Sử dụng trả về thông tin khách hàng có tiền nợ ít nhất trong năm 2005.
+SELECT customerNumber, customerName, MIN(total - amount) AS debt FROM (SELECT customerNumber, customerName, SUM(amount) AS amount FROM customers INNER JOIN payments USING(customerNumber) GROUP BY customerNumber) AS tableAmount INNER JOIN (SELECT customerNumber, orderNumber, SUM(quantityOrdered * priceEach) AS total FROM customers INNER JOIN orders USING(customerNumber) INNER JOIN orderdetails USING(orderNumber) GROUP BY customerNumber) AS tableTotal USING(customerNumber) GROUP BY customerNumber ORDER BY debt ASC;
+—-
+SELECT c.customerNumber, c.customerName, MIN(p.total - o.amount) AS debt
+FROM customers c
+JOIN (
+    SELECT customerNumber, SUM(amount) AS amount
+    FROM payments
+    WHERE YEAR(paymentDate) = 2005
+    GROUP BY customerNumber
+) o ON c.customerNumber = o.customerNumber
+JOIN (
+    SELECT customerNumber, SUM(quantityOrdered * priceEach) AS total
+    FROM orders o
+    JOIN orderdetails od ON o.orderNumber = od.orderNumber
+    WHERE YEAR(o.orderDate) = 2005
+    GROUP BY customerNumber
+) p ON c.customerNumber = p.customerNumber
+GROUP BY c.customerNumber, c.customerName
+ORDER BY debt ASC;
+
+
+ tiền nợ ít nhất trong năm 2005.
+điều kiện; where year(orderDate) = 2005
+== khó hiểu quá cần viết lại subquery ===
+
+
+26. Đưa ra thông tin của nhân viên vừa bán được đơn hàng gần đây nhất.
+SELECT employeeNumber, CONCAT(lastName, ' ', firstName) AS EmployeeName FROM employees e INNER JOIN customers c ON e.employeeNumber = c.salesRepEmployeeNumber INNER JOIN orders o ON c.customerNumber = o.customerNumber WHERE orderDate = (SELECT MAX(orderDate) FROM orders) GROUP BY e.employeeNumber
+
+nhân viên vừa bán được đơn hàng gần đây nhất.
+điều kiện vừa bán được đơn hàng gần nhất là 
+orderDate = (select max (orderDate) from orders) group by emNum
+
+27. Với mỗi khách hàng đã đặt hàng, đưa ra orderNumber của đơn đặt hàng có giá trị lớn nhất của khách hàng đó. Nếu yêu cầu đổi thành với mỗi khách hàng và những khách chưa đặt hàng thì điền N/A vào cột orderNumber và 0 vào cột costOfOrder, thì phải làm thế nào?
+SELECT customerNumber, customerName, IF(order Number IS NULL, 'N/A', orderNumber) AS order Number, IF(MAX(total) IS NULL, 0, MAX(total)) AS costoforder FROM customers c LEFT JOIN SELECT customer Number, orderNumber, SUM(quantityOrdered * priceEach) As total
+FROM orders INNER JOIN orderdetails USING(orderNumber) GROUP BY order Number ORDER BY total DESC) AS tablel USING(customer Number) GROUP BY customerNumber
+
+đơn đặt hàng có giá trị lớn nhất của khách hàng 
+hơi khó hiểu 
+SELECT c.customerNumber, c.customerName, IF(o.orderNumber IS NULL, 'N/A', o.orderNumber) AS orderNumber, IF(MAX(od.total) IS NULL, 0, MAX(od.total)) AS costOfOrder
+FROM customers c
+LEFT JOIN (
+    SELECT o.customerNumber, od.orderNumber, SUM(od.quantityOrdered * od.priceEach) AS total
+    FROM orders o
+    LEFT JOIN orderdetails od ON o.orderNumber = od.orderNumber
+    GROUP BY o.customerNumber, od.orderNumber
+) od ON c.customerNumber = od.customerNumber
+LEFT JOIN (
+    SELECT customerNumber, MAX(total) AS maxTotal
+    FROM (
+        SELECT o.customerNumber, od.orderNumber, SUM(od.quantityOrdered * od.priceEach) AS total
+        FROM orders o
+        LEFT JOIN orderdetails od ON o.orderNumber = od.orderNumber
+        GROUP BY o.customerNumber, od.orderNumber
+    ) t
+    GROUP BY customerNumber
+) maxod ON c.customerNumber = maxod.customerNumber AND od.total = maxod.maxTotal
+GROUP BY c.customerNumber, c.customerName;
+
+28. Viết truy vấn đưa ra 5 khách hàng có tổng số tiền order là lớn nhất đến từ Mỹ (USA) và 5 khách hàng cũng như vậy đến từ Pháp (France).
+(SELECT c.customerNumber, c.customerName, c.country, SUM(od.quantityOrdered*od.priceEach) tien 
+FROM customers c, orderdetails od 
+WHERE c.country = 'USA' AND od.orderNumber 
+IN (SELECT o.orderNumber 
+FROM orders o 
+WHERE o.customerNumber = c.customerNumber ) 
+GROUP BY od.orderNumber ORDER BY SUM(od.quantityOrdered*od.priceEach) DESC LIMIT 5) 
+UNION 
+(SELECT c.customerNumber, c.customerName, c.country, SUM(od.quantityOrdered*od.priceEach) tien FROM customers c, orderdetails od WHERE c.country = 'France' AND od.orderNumber IN (SELECT o.orderNumber FROM orders o WHERE o.customerNumber = c.customerNumber ) GROUP BY od.orderNumber ORDER BY SUM(od.quantityOrdered*od.priceEach) DESC LIMIT 5).
+
+5 khách hàng = limit 5
+tổng số tiền order lớn nhất = order by sum ( od.quantityOrdered * od.priceEach ) giảm dần
+đến từ USA , select số tiền order lớn nhất của khách hàng USA
+union
+đến từ France, select số tiền order lớn nhất của khách hàng France 
+
+
+
+29. Cập nhật các bản ghi có trường productLine là Motorcycles thành Motobikes trong bảng product lines. Tạo bảng mới tên là term_order, chèn thông tin các đơn hàng (sử dụng tất cả các trường trong bảng order) trong vòng 15 ngày trước kể từ ngày đặt hàng gần đây nhất trong bàng order.
+ALTER TABLE classicmodels.products DROP FOREIGN KEY products_ibfk_1; ALTER TABLE classicmodels.products ADD CONSTRAINT products_ibfk_1 FOREIGN KEY (productLine) REFERENCES classicmodels.productlines (productLine) ON DELETE CASCADE ON UPDATE CASCADE: update productlines set productLine = "Motobikes' where productLine = 'Motorcycles":
+cập nhật thì bỏ đi 
+
