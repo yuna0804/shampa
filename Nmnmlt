@@ -1,0 +1,2797 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    // khai bao cac bien
+    double a1, b1, c1, a2, b2, a3;
+    
+    // nhan gia tri tu standard input, su dung cin >>
+    cin >> a1>> b1 >> c1 >> a2 >> b2 >> a3;
+    
+    // tinh diem TB mon hoc
+    double TB = ((a1 + b1 + c1) + (a2 + b2)*2 + a3*3) / 10;
+    
+    // in ra gia tri cua TB, su dung cout <<
+    cout << TB;
+    
+    return 0;
+}
+
+
+
+[1] - Cấu trúc tuần tự 
+2, Hình tròn 
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+int main() {
+    int r; 
+    cin>>r;
+    //duong kinh
+    cout << setprecision(2) <<fixed<< 2*r << endl;
+    //chu vi
+    cout << setprecision(2) << fixed << 2*r*3.14 <<endl;
+    //dien tich
+    cout << setprecision(2) <<fixed << 3.14 * r*r << endl;
+}
+3, bình phương
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin>>n;
+    cout <<n*n;
+}
+chữ số đầu tiên
+#include<iostream>
+#include<string>
+using namespace std;
+
+/* neu de int chu y doi thanh long long 
+vi so o test lon no bi gioi han 
+*/
+
+int main() {
+    string n;
+    cin>>n;
+
+    
+    cout << n[0];
+}
+khoảng cách <giữa 2 điểm (x,y)>
+#include<iostream>
+#include<cmath>
+#include<iomanip>
+using namespace std;
+
+int main() {
+    int x,y;
+    cin>>x>>y;
+    
+    cout <<setprecision(2) <<fixed<< sqrt(x*x + y*y) ;
+}
+phép chia 2 :số nguyên = ép double 
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+int main() {
+    int a,b;
+    cin>>a>>b;
+    if (b == 0){ cout <<"error";}
+    else {
+         cout <<setprecision(2) <<fixed <<(double) a/b;
+    }
+   
+}
+BMI
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+int main() {
+    double w,h;
+    cin>>w>>h;
+    
+    cout <<setprecision(2) <<fixed << w / (h*h);
+}
+
+trung bình cộng (ép kiểu double)
+#include<iostream>
+using namespace std;
+int main() {
+    int a,b;
+    cin>>a>>b;
+    
+    cout <<(double) (a+b)/2;
+}
+trung bình nhân ( căn (a*b) )
+#include<iostream>
+#include<cmath>
+#include<iomanip>
+using namespace std;
+
+int main() {
+    int a,b;
+    cin>>a>>b;
+    
+    cout << setprecision(2) <<fixed << (double) sqrt(a*b) ;
+}
+diện tích tam giác vuông 
+#include<iostream>
+#include<iomanip>
+#include<cmath>
+using namespace std;
+int main() {
+    int a,b; 
+    cin>> a>> b;
+    cout << setprecision(2) << fixed << sqrt(a*a+b*b);
+}
+trang trại 
+Một trang trại chăn nuôi có 2 con gà và y con bò. Viết chương trình đếm số lượng chân của của các con vật trong trang trại. Biết rằng trong trang trại gà đều có hai chân và bỏ đều có bốn chân.
+Đầu vào
+Đầu vào từ bàn phím gồm một dòng duy nhất chứa 2 số nguyên x, y cách nhau bởi một dấu cách (x, y < 100).
+Đầu ra
+In ra màn hình một dòng duy nhất chứa số lượng chân của các con vật trong trang trại.
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    //x ga y bo 
+    int x,y;
+    cin>> x>> y;
+    cout << x*2 + y*4;
+}
+
+Diện tích tam giác (thường: Herong)
+#include<iostream>
+#include<iomanip>
+#include<cmath>
+using namespace std;
+
+int main() {
+    int a,b,c;
+    cin>>a>>b>>c;
+    double p = (double) (a+b+c)/2;
+    double s = sqrt(p*(p-a)*(p-b)*(p-c));
+    if (s <= 0) {cout << "invalid";}
+    else {
+    cout << setprecision(2) << fixed << s;
+    }
+}
+
+Phần 3 - luồng điều khiển , lệnh rẽ nhánh 
+2. khối if - else: cho c , in dạng IN HOA của ký tự 
+Bài tập
+Cho một ký tự bất kỳ. Viết chương trình thực hiện yêu cầu sau: nếu kí tự đó nằm trong bảng chữ cái tiếng Anh, tìm và in ra dạng VIẾT HOA của nó; ngược lại, in ra chính kí tự đó.
+Đầu vào
+Đầu vào từ bàn phím chứa duy nhất một kí tự.
+Đầu ra
+In ra màn hình kí tự theo yêu cầu đề bài.
+For example:
+Input
+Result
+a
+A
+H
+H
+3
+3
+
+
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+int main() {
+    char c; 
+    cin >> c;
+
+// so sanh ki tu (voi 'a' 'A')
+
+    if (c>= 'a' and c <= 'z') {c-= 32; cout << c;}
+    else cout << c;
+    
+    return 0;
+}
+
+
+
+
+3, switch - case: cung hoàng đạo 
+
+Cung hoàng đạo
+Thời gian
+Bach Duong
+21/3 - 19/4
+Kim Nguu
+20/4 - 20/5
+Song Tu
+21/5 - 21/6
+Cu Giai
+22/6 - 22/7
+Su Tu
+23/7 - 22/8
+Xu Nu
+23/8 - 22/9
+Thien Binh
+23/9 - 23/10
+Thien Yet
+24/10 - 22/11
+Nhan Ma
+23/11 - 21/12
+Ma Ket
+22/12 - 19/1
+Bao Binh
+20/1 - 18/2
+Song Ngu
+19/2 - 20/3
+
+
+
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int day, month;
+    cin>>day>>month;
+    
+    if(day==0 or month ==0) return 0;
+    
+    switch(month) {
+        case 1: 
+        if (day <= 19) {cout << "Ma Ket";}
+        else { cout << "Bao Binh";}
+        break;
+        
+        case 2:
+        if (day <= 18) {cout << "Bao Binh";}
+        else { cout << "Song Ngu";}
+        break;
+        
+        case 3:
+        if (day <= 20) {cout << "Song Ngu";}
+        else { cout << "Bach Duong";}
+        break;
+        
+        case 4:
+        if (day <= 19) {cout << "Bach Duong";}
+        else { cout << "Kim Nguu";}
+        break;
+        
+        case 5:
+        if (day <= 20) {cout << "Kim Nguu";}
+        else { cout << "Song Tu";}
+        break;
+        
+        case 6:
+        if (day <= 21) {cout << "Song Tu";}
+        else { cout << "Cu Giai";}
+        break;
+        
+        case 7:
+        if (day <= 22) {cout << "Cu Giai";}
+        else  {cout << "Su Tu";}
+        break;
+        
+        case 8:
+        if (day <= 22){ cout << "Su Tu";}
+        else  {cout << "Xu Nu";}
+        break;
+        
+        case 9:
+        if (day <= 22){ cout << "Xu Nu";}
+        else {cout << "Thien Binh";}
+        break;
+        
+        case 10:
+        if (day <= 23) {cout << "Thien Binh";}
+        else {cout << "Thien Yet";}
+        break;
+        
+        case 11:
+        if (day <= 22) {cout << "Thien Yet";}
+        else { cout << "Nhan Ma";}
+        break;
+        
+        case 12:
+        if (day <= 21) {cout << "Nhan Ma";}
+        else { cout << "Ma Ket";}
+        break;
+        
+    }
+}
+
+
+
+[2] - cấu trúc rẽ nhánh 
+giá trị tuyệt đối 
+n ra màn hình giá trị tuyệt đối của A
+================================
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n; 
+    cin >> n;
+    if (n<0) {n = -n;}
+    cout << n;
+}
+chữ cái 
+In ra màn hình dòng chữ YES  nếu kí tự đầu vào là một chữ cái nằm trong bảng chữ cái tiếng Anh, ngược lại in ra NO
+#include<iostream>
+using namespace std;
+
+int main() {
+    char c; 
+    cin >> c;
+    if( c >= 'a' and c <= 'z' ){cout << "YES";}
+    else if (c >='A' and c <= 'Z'){cout <<"YES";}
+    else{ cout <<"NO";}
+}
+
+kiểm tra số nguyên 1 
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    if (n%3 == 0 and n%4!=0 and (n%5==2 or n%5 == 3)) {cout<<"YES";}
+    else {cout <<"NO";}
+}
+kiểm tra số nguyên 2
+
+#include<iostream>
+#include<cmath>
+using namespace std;
+int main() {
+    int n;
+    cin>>n;
+    
+    if (sqrt(n)*sqrt(n) == n and n%3 == 0 and n%5 == 1) {cout <<"YES";}
+    else {cout <<"NO";}
+}
+tính tuổi 
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int namHienTai, tuoiHienTai, namMuonBiet;
+    cin>> namHienTai >> tuoiHienTai >> namMuonBiet;
+    
+    //tinh nam sinh = namHienTai - tuoiHienTai
+    int namSinh = namHienTai - tuoiHienTai;
+    
+    // cout tuoi muon biet = nam muon biet - nam sinh
+    cout << namMuonBiet - namSinh;
+}
+Bội số 
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int a,b;
+    cin>>a>>b;
+    
+    if (a == 0 or b == 0) {cout <<"no";}
+    else {
+        if (a%b==0) {cout <<"yes";}
+        else cout << "no";
+    }
+}
+số chính phương
+
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    double x = sqrt(n);
+    int y = (int) x;
+    if (y == x) {cout <<"yes";}
+    else cout << "no";
+    // if ( x*x == n) {cout << "yes";}
+    // else cout << "no";
+}
+năm nhuận
+
+#include <iostream>
+using namespace std;
+
+// nam nhuan chia het cho 4 
+//           ko chia het cho 100
+int main() {
+    int n;
+    cin>>n;
+    if(n%4==0 and n%100 != 0){cout << "yes";}
+    else cout <<"no";
+
+#include<iostream>
+
+using namespace std;
+
+// chu thuong thi -32
+// hoa thi +32
+
+int main() {
+    char c;
+    cin >> c;
+    
+    if (c >= 'a' and c <='z') { 
+        char x = c - 32;
+        cout <<"The upper case character corresponding to " << c <<" is " << x;
+    }
+    else if (c >= 'A' and c <= 'Z') {
+        char x = c + 32;
+        cout <<"The lower case character corresponding to " << c <<" is " << x;
+    }
+    else {cout << c << " is not a letter";}
+}
+Taxi
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >>n;
+    int gia = 0;
+    for (int i = 1; i <=n ; i++) {
+        if(i == 1){gia = gia + 7000; } // 1 km dau tien la 7000 dong
+        else if (i >=2 and i <= 30) {gia = gia + 5000;}
+        else {gia = gia + 3000;}
+    }
+    
+    cout << gia;
+}
+thuê máy 
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int gioBegin, gioEnd, soMayThue;
+    cin>> gioBegin >> gioEnd >> soMayThue;
+    int giaMoiMayThue = 0;
+    
+    // kieu bat dau tu 6h --> end 7h
+    // tuc la chi co 1h 
+    // for (int i = 6h+ 1 --> 7h )
+    for (int i = gioBegin+1; i <= gioEnd; i++ ) {
+        if (i <= 17) { giaMoiMayThue = giaMoiMayThue + 2500;}
+        else {giaMoiMayThue = giaMoiMayThue + 3000;}
+    }
+    cout << giaMoiMayThue* soMayThue ;
+}
+lương 
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int gioBegin, gioEnd;
+    cin >> gioBegin >> gioEnd;
+    
+    /* 
+    6h --> 7h la 1 tieng 
+    for ( i = 6h+1 --> 7h) = 1 tieng 
+    */
+    int luong = 0;
+    for (int i = gioBegin + 1; i <= gioEnd ; i++) {
+        if (i <= 12) {luong = luong +6000;}
+        else {luong += 7500;}
+    }
+    
+    cout << luong;
+}
+
+đảo ngược số 
+
+#include<iostream>
+#include<vector>
+using namespace std;
+
+void doiSoThanhMangDao(int &n, vector<int> &a) {
+    
+    int m = n;
+    while(m>0) {
+        int x = m % 10;
+        m=m/10;
+        a.push_back(x);
+    }
+    
+    // for (int i = 0 ; i < len; i++) {
+    //     cout << a[i];
+    // }
+    // ===> 1,0.9 
+    
+}
+
+void daoMang (int b[], vector<int> &v) {
+    int len = v.size();
+    for (int i = 0 ; i < len; i++) {
+        b[i] = v[len-1-i];
+    }
+    
+    // for (int i = 0; i < len ; i++) {
+    //     cout << b[i];
+    // }
+    // ===> 9,0,1
+}
+
+int doiMangThanhSo(int b[], int &len) {
+    int aPhay = 0;
+    for (int i = 0 ; i < len ; i++) {
+        if (i == 0) { aPhay += b[i]*1;}
+        else { 
+            int tichCua10 = 10;
+            for (int j = 1; j < i;j++) {
+                tichCua10 = tichCua10 * 10;
+            }
+            aPhay = aPhay + b[i]*tichCua10;
+        }
+        
+    }
+    return aPhay;
+    
+}
+
+
+int main(){
+    int a;
+    cin >> a;
+    vector<int>v;
+    doiSoThanhMangDao(a, v);
+    
+    int len = v.size();
+    // // check mang v 
+    // for (int i = 0 ; i < len; i++) {
+    //     cout << v[i];
+    // }
+    // // ===> 1,0.9 
+    
+    //***dao mang ***
+    int b[len];
+    daoMang(b, v);
+    //  kiểm tra tính hợp lệ của đầu vào. Nếu không hợp lệ (không thỏa mãn yêu cầu a>c la <=), 
+// in ra màn hình dòng chữ invalid
+// vi dau vao ban dau chi la 1 so nguyen co 3 chu so 
+    if (b[0] <= b[2]) {cout << "invalid";}
+    else {
+         int aPhay = doiMangThanhSo(b,len);
+    
+    
+        int B = a - aPhay; // n chinh la A cua de bai
+        // cout << aPhay; //109 
+        
+        vector<int> bv;
+        doiSoThanhMangDao(B, bv);
+        int lenb = bv.size();
+        
+        int brr[lenb];
+        daoMang(brr, bv);
+        
+        int bPhay = doiMangThanhSo(brr, lenb);
+        int res = B + bPhay;
+        
+        cout << res;
+    }
+   
+}
+
+    
+
+điểm số 
+
+
+#include<iostream>
+#include<iomanip>
+#include<cmath>
+using namespace std;
+
+int main() {
+    int n; cin >> n; // so buoi ly thuyet
+    double diemTH[10];
+    for (int i = 0 ; i < 10; i ++) {
+        cin >> diemTH[i];
+    }
+    
+    double diemGK[2];
+    for (int i = 0; i < 2; i++) {
+        cin>>diemGK[i];
+    }
+    
+    double diemCK, diemSTao;
+    cin >> diemCK >> diemSTao;
+    
+    // Điểm trung bình của các bài thực hành (TH): 
+    //Lấy trung bình cộng của 5 bài thực hành 
+    //có điểm số cao nhất trong tổng số 10 bài thực hành 
+    //(các bài thực hành được chấm theo thang điểm 10
+    
+    // dau tien la lay 5 diem TH max
+    // sap xep mang diemTH thanh chuoi giam dan
+    
+    for (int i = 0 ;  i < 10; i++) {
+        for (int j = i+1; j < 10; j++) {
+            if (diemTH[i] < diemTH[j]) {
+                double t = diemTH[i];
+                diemTH[i] = diemTH[j];
+                diemTH[j] = t;
+            }
+        }
+    }
+    
+    double sum5TH = 0;
+    // lay 5 so dau chuoi va tinh tb 
+    for (int i = 0 ; i < 5; i++) {
+        sum5TH += diemTH[i];
+    }
+    
+    double diemTBCuaTH = (double) sum5TH / 5;
+    
+    // cout << diemTBCuaTH; dung r
+    
+    //DIEM TB 2 
+    double sumGK = diemGK[0] + diemGK[1];
+
+    double diemTBCuaGK = (double) sumGK / 2;
+    
+    // DIEM CC = SO BUOI LY THUYET N + SO BAI THUC HANH KHAC 0 
+    int countTH = 0;
+    for (int i = 0 ; i < 10; i++) {
+        if (diemTH[i] != 0 ) {countTH++;}
+        
+    }
+    
+    double diemCC = n + countTH;
+    
+    
+// Điểm tổng kết môn học được tính theo công thức:
+
+// TK=0 nếu CC<20
+
+// TK=0.2×TH+0.2×GK+0.6×(ST+CK) nếu CC>=20
+   
+   // điểm thành phần được làm tròn đến 0.5
+ // trước khi tính vào điểm tổng kết. Điểm tổng kết được làm tròn đến 0.1
+
+    if (diemCC < 20) { cout << "0.0";}
+    else {
+        
+        
+        double diemTK =  0.2 * diemTBCuaTH + 0.2*diemTBCuaGK + 0.6*(diemSTao + diemCK);
+        if (diemTK < 0 or diemTK > 10) {  cout << "10.0";}
+        else {
+            cout << setprecision(1) << fixed << round(diemTK*10)/10;;
+        }
+    }
+
+    /*
+    double num = 12.3456;
+    cout << round(num * 100) / 100 ; //12.35
+
+    */
+    
+}
+phương trình bậc 1
+
+
+
+
+ #include<iostream> 
+#include<iomanip>
+using namespace std;
+
+int main() {
+    int a,b;
+    cin >> a >> b;
+    
+    if (a == 0) {
+        if (b == 0) { cout << "phuong trinh co vo so nghiem" ; }
+        else { cout << "phuong trinh vo nghiem" ; } // vi k chia duoc cho 0
+    } else {
+        cout << setprecision(2) <<fixed << (double) -b / a;
+    }
+}
+
+phương trình bậc 2
+
+
+
+
+#include<iostream> 
+#include<cmath>
+
+#include<iomanip>
+
+using namespace std;
+
+int main() {
+    int a,b,c;
+    cin >> a>> b>>c;
+    
+    if (a==0) { // bien thanh pt bac 1 : bx + c = 0
+        if ( b == 0) { // c = 0 
+            if (c == 0) { cout <<  "phuong trinh co vo so nghiem" ; } // 0x + 0 = 0 
+            else { cout << "phuong trinh vo nghiem" ; } 
+        } else { // b != 0 --> x = -c / b
+            cout << "phuong trinh co 1 nghiem" << endl; 
+            cout << setprecision(5) << fixed << (double) -c / b;
+        }   
+    } else { // a != 0 ==> ax^2 + bx + c = 0 
+        int delta = b*b - 4 * a* c;
+        
+        if (delta < 0 ) { cout << "phuong trinh vo nghiem" ; } 
+        else if (delta == 0) { cout <<  "phuong trinh co 1 nghiem"  << endl << setprecision(5) << fixed << (double) -b / 2*a ;}
+        else {
+            cout << "phuong trinh co 2 nghiem" << endl; 
+            cout <<setprecision(5) << fixed << (-b - sqrt(delta))/2*a << " " <<(-b + sqrt(delta))/2*a;
+        }
+    }
+    
+}
+phương trình trùng phương 
+
+
+
+
+#include<iostream>
+#include<iomanip>
+#include<cmath>
+using namespace std;
+
+int main() {
+    int a,b,c;
+    cin>>a>>b>>c;
+    
+    
+    if (a == 0) { // b.x^2 + c = 0
+        if ( b == 0) {
+            if (c == 0) { cout << "phuong trinh co vo so nghiem";} // a == 0 b == 0 c == 0
+            else {cout << "phuong trinh vo nghiem";}// c!= 0 ma pt: c = 0 
+        } else { // b != 0, pt: b.x^2 + c = 0 ==> x = +- can( -c / b)
+                // trong can luon phai > 0 ==> can (duong)
+            if (-(c/b) < 0) {cout << "phuong trinh vo nghiem";}//b x^2  = - c;
+            else {
+                if (-c/b < 0) {
+                    // trong căn < 0 thi k được 
+                    int trongCan = -(-c/b);
+                    cout << "phuong trinh co 1 nghiem" << endl 
+                << setprecision(5) << fixed << (double) sqrt(trongCan); 
+                } else if(-c/b == 0) {
+                    cout << "phuong trinh co 1 nghiem" << endl;
+                    cout << setprecision(5) << fixed << (double) 0;
+                } else {
+                cout << "phuong trinh co 2 nghiem" << endl 
+                     << setprecision(5) << fixed << (double) -sqrt(-(c/b)) << " " << sqrt(-c/b); 
+                }
+            }
+        } 
+    } else { 
+        // a ! = 0 , pt: a.x^4 + b.x^2 + c = 0 
+        // dat t = x^2 : a t^2 + b.t + c = 0
+        int delta = b*b - 4*a*c;
+        if (delta < 0) { cout << "phuong trinh vo nghiem";}
+        else if (delta == 0) { 
+            if (-b / 2*a < 0) { cout << "phuong trinh vo nghiem";}
+            else if ( - b / 2*a == 0) { 
+                cout << "phuong trinh co 1 nghiem" << endl;
+                cout << setprecision(5) << fixed << (double) 0;
+            } else {
+            cout << "phuong trinh co 2 nghiem" << endl 
+                                    << setprecision(5) << fixed << (double) -sqrt(-b/2*a) << " " 
+                                    << (double) sqrt(-b/2*a) ;
+            }
+        } else {
+            double t1 = (-b - sqrt(delta)) / 2*a ;
+            double t2 = (-b + sqrt(delta)) / 2*a ;
+            
+            double x[4];
+//***** cout << t1 << "va" << t2 <<endl;
+            
+//th0: 0 nghiem khi cả 2 t đều < 0
+            if (t1 < 0 and t2 < 0) { cout << "phuong trinh vo nghiem";}
+            
+//th1: 1 nghiem 
+    // neu t1 < 0 thi k the tính căn được nên loại t1, t2 = 0 ==> co 1 nghiem
+    
+            else if (t1 < 0 and t2 == 0) {
+                cout <<"phuong trinh co 1 nghiem" << endl;
+                cout << setprecision(5) << fixed << t2;
+            } else if ( t2 < 0 and t1 == 0) {
+                cout <<"phuong trinh co 1 nghiem" << endl;
+                cout << setprecision(5) << fixed << t1;
+            } 
+            
+// th2: 2 nghiem 
+    // t1 < 0 , t2 > 0 ==> + va - căn(t2) ==> 2 nghiem
+    
+            else if (t1 < 0 and t2 > 0) {
+                cout << "phuong trinh co 2 nghiem" << endl; 
+                cout << setprecision(5) << fixed << -sqrt (t2) << " " << sqrt(t2);
+            } else if(t2 < 0 and t1 > 0) {
+                cout << "phuong trinh co 2 nghiem" << endl; 
+                cout << setprecision(5) << fixed << -sqrt(t1) << " " << sqrt(t1) ;
+            }
+            
+// th3: 3 nghiem 
+    // t1 = 0 : 1 nghiem
+    // t2 > 0 : +- căn(t2) : 2 nghiem
+    // tổng = 3 nghiệm 
+    
+            else if(t1 == 0 and t2 > 0) {
+                 cout << "phuong trinh co 3 nghiem" << endl; 
+                 //t1 = 0
+                 x[1] = 0;
+                 
+                 // t2>0
+                 x[2] = -sqrt(t2);
+                 x[3] = sqrt(t2);
+                 cout << setprecision(5) << fixed << x[2] << " " << x[1] << " " << x[3];
+            } else if (t2 == 0 and t1 > 0) {
+                 cout << "phuong trinh co 3 nghiem" << endl; 
+                 //t2 = 0
+                 x[1] = 0;
+                 // t1>0
+                 x[2] = -sqrt(t1);
+                 x[3] = sqrt(t1);
+                 cout << setprecision(5) << fixed <<x[2] <<" " << x[1] << " "<< x[3];
+            }
+            
+            // th4: 4 nghiem 
+            else { 
+                x[0] = -sqrt(t1);
+                x[1] = sqrt(t1);
+                x[2] = -sqrt(t2);
+                x[3] = sqrt(t2);
+                
+                for (int i = 0; i < 4 ; i++) {
+                    // sap xep nghiem tu nho --> lon
+                    for (int j = i+1; j < 4; j++) {
+                        if(x[i] >x[j]) {
+                            int t = x[i];
+                            x[i] = x[j];
+                            x[j] = t;
+                        }
+                    }
+                }
+                cout << "phuong trinh co 4 nghiem" << endl;
+                for (int i = 0 ; i < 4; i++) {
+                cout << setprecision(5) << fixed << x[i] <<" ";
+                }
+            }
+        }
+    }
+}
+
+
+phần 4 - vòng lặp 
+1, tống các số nguyên từ 1 đến n
+int sum =0;
+    for (int i = 1 ; i <= n ; i ++) {
+        sum +=i;
+    }
+
+3, gà và chó 
+
+tổng số chân = gà x 2 + chó x 4 ⇒ gà = [ tổng số chân - chó x 4 ] / 2
+
+tổng số con = gà + chó ⇒ chó = tổng số con - gà ⇒ thay vào pt trên 
+=====================================================
+#include <iostream>
+using namespace std;
+
+int main() {
+    int tong_so_con, tong_so_chan;
+    cin >> tong_so_con >> tong_so_chan;
+    
+    int ga, cho ;
+    cin >> ga >> cho; 
+    
+    ga = (tong_so_con*4 - tong_so_chan)/2;
+    
+    cho = tong_so_con - ga;
+    
+    if (ga*2 + cho*4 == tong_so_chan) {
+    cout << "chicken = " << ga << ", dog = " << cho ;
+    } else {
+        cout << "invalid";
+    }
+}
+
+4, ước chung lớn nhất
+ Cho hai số m và n là hai số nguyên nhập từ bàn phím. Viết chương trình tìm ước chung lớn nhất của hai số m và n (UCLN>0).
+Lưu ý: Xử lý cả trường hợp m,n<0.
+
+Đầu vào: Hai số nguyên m và n.
+Đầu ra: Ước chung lớn nhất (ước dương) của hai số.
+===================================================
+#include<iostream>
+using namespace std;
+
+int ucln(int a, int b) {
+    if (a%b == 0) return b;
+    else return ucln(b, a%b);
+}
+int main() {
+    int m,n;
+    cin>>m>>n;
+    
+    int res = ucln(m,n);
+    if ( m < 0 and n < 0){  cout << res;}
+    else if ( m > 0 and n > 0) { cout << res; }
+    else { res = -res; cout << res;}
+    
+}
+
+5, ý nghĩa cuộc sống 
+Đầu vào: Số nguyên dương n là số số nguyên và n số nguyên bất kỳ.
+
+Đầu ra: In ra màn hình dòng chữ I′ve found the meaning of life! nếu trong n số nguyên có số 42, ngược lại in ra dòng chữ It′s a joke!
+—--------------------------------------------------------------------------------------------
+trong n số nguyên có số 42, ngược lại in ra dòng chữ 
+⇒ dùng flag 
+=========================================================
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin>>n;
+    
+    int a[n];
+    for (int i = 0 ; i < n ; i ++) {
+        cin>>a[i];
+    }
+    bool check = 0;
+    for (int i = 0 ; i < n ; i++) {
+        if (a[i] == 42) {check = 1;}
+        
+    }
+    
+    if (check == 1) {cout <<"I've found the meaning of life!";}
+    else cout << "It's a joke!";
+}
+
+6, dãy fibonacci
+
+Viết chương trình tính số Fibonacci thứ n
+===========================================================
+#include<iostream>
+using namespace std;
+int Fibo(int n) {
+    if(n<=2) {return 1;}
+    else return Fibo(n-1) + Fibo(n-2);
+}
+int main(){
+    int n; cin>>n;
+    
+    int res = Fibo(n);
+    cout << res;
+}
+
+7, đếm kẹo 
+Đầu vào
+Đầu vào từ bàn phím gồm 2 dòng:
+
+Dòng đầu tiên chứa số nguyên n (n≤10) là số túi kẹo mà bé Bông nhận được.
+Dòng thứ hai chứa n số nguyên dương, phân tách nhau bởi một dấu cách, tương ứng với số lượng kẹo trong các túi.
+Đầu ra
+In ra màn hình số viên kẹo mà bé Bông nhận được.
+=========================================================
+là tổng các số trong mảng 
+==========================================================
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n ; cin>>n;
+    int a[n];
+    for (int i = 0 ; i < n; i ++) {
+        cin >> a[i];
+    }
+    
+    int sum =0;
+    for (int i = 0 ; i < n ;i++) {
+        sum += a[i];
+    }
+    cout << sum;
+}
+[3] cấu trúc lặp 
+tích các số lẻ
+
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    long long n; 
+    cin >> n;
+    
+    long long tich = 1;
+    for (int i = 1 ; i <= n; i++) {
+        tich = tich * (2*i + 1);
+    }
+    cout << tich;
+}
+tổng các phân số 
+
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+int main() {
+    int n; 
+    cin >> n ; 
+    double sum = 0;
+    
+    for (double i = 1; i <=n ; i++) {
+        sum = sum + i/(i+1);
+    }
+    cout << setprecision(5) << fixed << sum;
+}
+tổng các số lẻ 
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    int sum = 0;
+    for (int i = 0; i <= n ; i++) {
+        sum = sum + (2*i +1);
+    }
+    
+    cout << sum;
+}
+
+tổng giai thừa 
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    int sum = 0;
+    int tich = 1;
+    for (int i = 1 ; i <= n ; i ++) {
+        tich = tich * i;
+        sum = sum + tich;
+    }
+    cout << sum;
+}
+
+biểu thức cộng
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n ; 
+    int sum = 0;
+    int sumAll = 0;
+    
+    for (int i = 1; i <=n; i++) {
+        sum = sum + i;
+        sumAll = sumAll + sum;
+    }
+    cout << sumAll;
+}
+tổng lũy thừa
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    int sum = 0 ;
+    int tich ;
+    
+    for (int i = 1; i <=n ; i++) {
+        tich = 1;
+        for (int j = 1; j <=i; j++) {
+            tich = tich * i;
+        }
+       sum = sum + tich;
+    }
+    
+   
+    cout << sum;
+}
+chữ số lớn nhất
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    string n;
+    cin >> n;
+    char max = '0';
+    int len = n.length();
+    for (int i = 0 ; i < len; i++) {
+        if (n[i] > max) max = n[i];
+    }
+    cout << max;
+}
+
+chuyển nhiệt độ
+
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+int main() {
+    int a,b;
+    cin >> a >> b;
+    
+    for (int i =a ; i <=b; i ++) {
+        cout << i << " " << setprecision(2) << fixed << (double) (i - 32)*5/9 << " " << (double) (i - 32)*5/9 + 273.15 << endl;
+    }
+} 
+dãy số tổng
+
+#include<iostream>
+using namespace std;
+int f(int n) {
+    if ( n == 0) return 1;
+    else if (n == 1) return 1;
+    else return 2*f(n-1) + f(n-2) +1;
+}
+int main() {
+    int n ;
+    cin >> n;
+    cout << f(n);
+}
+
+dãy số hiệu []
+dãy số fibonacci
+
+#include<iostream>
+using namespace std;
+
+int f(int n) {
+    if ( n == 0 ) return 0;
+    else if (n == 1) return 1;
+    else return f(n-1) + f(n-2);
+}
+int main() {
+    int n;
+    cin >> n;
+    int res = f(n);
+    cout << res;
+}
+điểm trung bình
+
+
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    double diem[n];
+    // nhap điểm 
+    for (int i = 0 ; i < n; i++) {
+        cin >> diem[i];
+    }
+    double sum = 0;
+    for (int i = 0 ; i < n ; i ++) {
+        sum += diem[i];
+    }
+    
+    cout << setprecision(2) << fixed << (double) sum / n ;
+}
+điểm trung bình theo hệ số
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    double a[2*n];
+    double sum = 0;
+    double sumHeSo = 0;
+    // n dòng tiếp theo nhập 2 số 
+    for (int i = 0; i < 2*n; i++) {
+        cin >> a[i];
+    }
+    for (int i = 0 ; i < 2*n ; i++) {
+        if (i == 0 or i %2 == 0) { 
+            sum = sum + a[i]*a[i+1];
+        }
+    }
+    
+    for (int i = 0 ; i < 2*n; i++) {
+        if (i %2 !=0){ sumHeSo = sumHeSo + a[i];}
+    }
+    cout << setprecision(2) << fixed << (double) sum / sumHeSo;
+}
+#include<iostream>
+using namespace std;
+
+int main() {
+    cout << "12 midnight" << endl;
+    
+    for (int i = 1 ; i <= 11 ; i++) {
+        cout << i << "am" << endl;
+    }
+    
+    cout << 12 << " noon" << endl;
+    
+    for (int i = 1; i <=11 ; i++) {
+        cout <<i<<"pm" << endl;
+    }
+}
+
+lãi suất 
+
+#include<iostream>
+#include<iomanip>
+using namespace std;
+/* 
+ a = p (1 + r ) mũ n
+*/
+int main() {
+    int x,n; // x đồng = gốc = p 
+    cin >>x >> n;
+    double res = 1;
+    
+    // tính (1+r) mũ n trước
+    for (int i = 1; i <= n ; i++) {
+       res = res * (1 + 0.7*0.01); 
+    }
+    
+    cout << setprecision(0) << fixed << x * res;
+    
+    
+}
+
+lũy thừa <>
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int a,b;
+    cin >> a>>b;
+    long long res = 1;
+    for (int i = 1; i <=b; i++) {
+        res = res * a;
+    }
+    cout << res;
+}
+phép chia 5
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n;
+    do {
+       cin >> n; 
+       
+       if ( n == -1){ cout << "bye" << endl;}
+       else {
+           if ( n >= 0 and n%5 == 0 ) {cout << n / 5 << endl;}
+           else cout <<"-1" <<endl;
+       }
+    } while(n != -1);
+}
+số chính phương<>
+#include<iostream>
+using namespace std;
+int main() {
+    int n ; cin >>n;
+    
+    for (int i = 1; i <= n; i++) {
+        cout <<i << " " << i*i << endl;
+    }
+}
+số hoàn thiện
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    int sum = 0;
+    for (int i = 1; i < n ; i ++) {
+        if ( n%i == 0) { sum += i;}
+    }
+    
+    if (sum == n) cout << "yes";
+    else cout << "no";
+}
+
+số nguyên tố<> br
+#include<iostream>
+using namespace std;
+
+int ucln(int a,int b) {
+    if (a % b == 0) return b;
+    else return ucln(b, a%b);
+}
+int main() {
+    int n ; 
+    cin >> n;
+    bool check = 1;
+    // la so nguyen to khi ucln = 1
+    if (n == 1) { cout << "no"; } // 1 k la so nguyen to 
+    else {
+        for (int i = 2; i < n ; i ++) {
+            if (ucln(n,i) != 1) { check = 0;} 
+        }
+        if (check == 1) cout << "yes";
+        else cout << "no";
+    }
+}
+tam giác vuông
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >>n;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= i ; j++) {
+            cout <<"*" ;
+        }
+        cout << endl;
+    }
+}
+
+
+ước số chẵn <>
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n ;
+    cin >> n;
+    int count = 0;
+    for (int i = 2; i <=n ; i++) {
+        if (n% i == 0 and i%2== 0) {
+            count++;
+        }
+    }
+    cout << count ;
+}
+
+Phần 5 - Mảng 
+1, mảng 1 chiều 
+Đầu vào
+Đầu vào từ bàn phím gồm 2 dòng:
+Dòng đầu tiên chứa số nguyên n (n ≤ 30).
+Dòng thứ 2 chứa n số nguyên dương có giá trị không vượt quá 100, cách nhau bởi một dấu cách là số lượng sản phẩm từng công nhân làm được trong một ngày.
+Đầu ra
+In ra màn hình một dòng chứa tất cả các số nguyên là số sản phẩm của các công nhân làm ra số sản phẩm lớn hơn hoặc bằng mức trung bình, mỗi số cách nhau bởi một dấu cách.
+For example:
+Input
+Result
+4
+9 2 3 4
+9
+
+tính TB
+a[i] nào lớn hơn TB thì cout 
+=============================================================
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n; cin>>n;
+    double a[n];
+    for (int i = 0; i < n; i++) {
+        cin>> a[i];
+    }
+    
+    // tinh TB 
+    int sum = 0; 
+    for (int i = 0 ; i < n ; i++) {
+        sum+= a[i];
+    }
+    double x = (double) n;
+    double TB = sum / x;
+    
+    for (int i = 0 ;  i < n ; i ++) {
+        if ( a[i] >= TB ) cout <<a[i] <<" ";
+    }
+}
+
+2, mảng 2 chiều
+Bài tập
+Cho ma trận kích thước m x n chứa các số nguyên, các hàng được đánh số từ 1 đến m, các cột được đánh số từ 1 đến n. Có Q câu hỏi, mỗi câu hỏi đưa ra 2 số i, j. Nhiệm vụ của bạn là in ra giá trị của phần tử ở hàng thứ i và cột thứ j của ma trận.
+Đầu vào
+Đầu vào từ bàn phím gồm m + Q +1 dòng.
+Dòng đầu tiên chứa 3 số nguyên m, n, Q (m, n, Q≤ 500).
+m dòng tiếp theo mỗi dòng chứa n số nguyên biểu diễn ma trận đã cho, các số liên tiếp trên một dòng cách nhau bởi một dấu cách. 
+Q dòng tiếp theo, mỗi dòng là một câu hỏi chứa 2 số nguyên i, j cách nhau bởi một dấu cách.
+Đầu ra
+In ra màn hình Q dòng, mỗi dòng tương ứng với câu trả lời của một câu hỏi.
+ 
+Input
+Result
+3 3 2
+1 3 5
+2 4 7
+3 4 2
+1 3
+2 2
+5 
+4
+
+============================================================
+#include<iostream>
+using namespace std;
+
+
+int main() {
+    int m, n , Q;
+    cin>>m>>n>>Q;
+    int a[m][n];
+    
+/* for (int x = 1 ; x <= m; x++) {
+        for (int y = 1 ; y <= n; y++) {
+        
+   for (int b = 0 ; b < Q; b++) {
+   cout << a[i][j] << endl;
+   ***********Time Error*************** 
+*/
+    for (int x = 0 ; x < m; x++) {
+        for (int y = 0 ; y < n; y++) {
+            cin>> a[x][y];
+        }
+    }
+    
+    for (int b = 0 ; b < Q; b++) {
+        int i,j;
+        cin>> i >> j ;
+        cout << a[i-1][j-1] << endl;
+    }
+}
+    
+    
+
+3, xâu ký tự 
+Bài tập
+Cho 2 xâu kí tự s và t có cùng độ dài. Viết chương trình đếm số lượng vị trí í sao cho s[i] = t[i].
+Đầu vào
+Dữ liệu vào từ bàn phím gồm 2 dòng. Dòng thứ nhất chứa xâu s. Dòng thứ hai chứa xâu t.
+Đầu ra
+In ra màn hinh theo yêu cầu ở trên.
+
+Input
+Result
+abc123
+acb213
+2
+
+=============================================================
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main () {
+
+   string s,t;
+   cin >> s;
+   cin >> t;
+   // code cua ban o day
+
+    int lens = s.length();
+    int lent = t.length();
+    
+    int count = 0;
+    for (int i = 0 ; i < min(lens, lent); i++) {
+        if(s[i] == t[i]) count++;
+    }
+    
+    cout << count;
+   return 0;
+}
+
+4, trên trung bình
+Viết chương trình nhập vào một mảng số thực có độ dài n (Độ dài n và các phần tử của mảng là input của chương trình) In ra tất cả những giá trị lớn hơn hoặc bằng giá trị trung bình w
+
+Đầu vào:
+• Dòng đầu tiên chứa số nguyên n là số phần tử của dây;
+• Dòng tiếp theo chứa n số thực.
+Đầu ra: Tất cả các số thực lớn hơn giá trị trung bình của dãy. Các số cách nhau bởi dấu cách và làm tròn đến chữ số thập phân thứ hai.
+ For example:
+Input
+Result
+10
+-1 3 8374 23 -1392 34 234 -83 -263 10
+8374.00
+
+=========================================================
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+int main() {
+    int n;
+    cin>>n;
+    
+    double a[n];
+    for (int i = 0; i<n;i++) {
+        cin>>a[i];
+    }
+    
+    // tinh xichma 
+    int sum = 0 ;
+    for (int i = 0 ; i < n ; i ++) {
+        sum+=a[i];
+    } // tử số 
+
+    double x = (double) n;
+    double TB = sum / x; // tử số / mẫu số 
+    
+    for (int i = 0 ; i < n ; i++) {
+        if(a[i] >= TB) cout <<setprecision(2)<< fixed<<a[i] <<" ";
+    }
+tan suat
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    int a[n];
+    for (int i = 0 ; i < n ; i ++) {
+        cin >> a[i];
+    }
+    
+    int count[10000];
+    // dem tan suat 
+    
+   
+    int checkXuatHien[n];
+    for (int i = 0 ; i < n; i++) {
+        checkXuatHien[i] = 0;
+    }
+    for (int i = 0 ; i < n; i++) {
+        count[a[i]] = count[a[i]] + 1;
+        
+    }
+    
+    for (int i = 0 ; i < n;i++) {
+        for (int j = i +1; j< n ; j++) {
+            if (a[i] == a[j]) {checkXuatHien[j] = 1;} 
+        }
+    }
+    
+    for (int i = 0 ; i < n ; i ++) {
+        if(checkXuatHien[i] == 0){ cout << a[i] <<" " << count[a[i]] << endl;}
+    }
+}
+
+/* 
+map[key] = value
+*/
+
+6, ngày hạnh phúc 
+Một cửa hàng đặt ra mục tiêu là phải bán được một số lượng sản phẩm nhất định trong một ngày. Mỗi ngày cửa hàng này sẽ ghi lại số chênh lệch giữa sản phẩm bán được và mục tiêu đã đề ra. Các số liệu được lưu trữ tối đa trong vòng 30 ngày.
+Viết một chương trình nhập vào số ngày theo dõi n và độ chênh lệch theo từng ngày. Ngày đầu tiên được tính là ngày 1, in ra màn hình những ngày bán được sản phẩm nhiều hơn hoặc bằng mục tiêu đề ra.
+Đầu vào: số ngày n và n số nguyên biểu diễn độ chênh lệch theo từng ngày.
+Đầu ra: In ra những ngày bán được sản phẩm nhiều hơn hoặc bằng mục tiêu (tính từ ngày 1).
+Dữ liệu vào nhập từ bàn phím và kết quả được in ra màn hình. (Chi tiết xem ở
+
+Input
+Result
+5 -3 42 32 -9 15
+2 3 5
+
+===============================
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n; 
+    cin >> n;
+    
+    int a[n];
+    for (int i = 1 ; i <= n; i++) {
+        cin>>a[i];
+    }
+    
+    for (int i = 2 ; i <= n ; i++) {
+        if(a[i] >= 0) cout<<i<<" ";
+    }
+}
+mảng 1 chiều
+tổng dãy số 0
+các chỉ số thống kê 1 (trung bình và phương sai) <>
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+int main() {
+    int n ; 
+    cin >> n;
+    
+    double a[n];
+    for(int i = 0 ; i < n ; i++) {
+        cin >> a[i];
+    }
+    
+    // tính trung bình 
+    int sum = 0 ; 
+    for (int i = 0 ; i < n ; i++) {
+        sum += a[i];
+    }
+    
+    double TB = (double) sum / n;
+    
+    // tính phương sai 
+    //s^2 = xich ma (x - TB) ^2 / n - 1 bị sai 
+    // s^2 = xich ma (x - TB) ^2 / n  lại đúng 
+    double tuSo = 0 ;
+    for (int i = 0 ; i < n ; i++) {
+        tuSo += (a[i] - TB)*(a[i] - TB);
+    }
+    
+    double phuongSai = (double) tuSo / (n);
+    
+    cout << setprecision(2) << fixed << TB << " " << phuongSai ;
+}
+
+đổi chỗ <>
+In ra màn hình dãy số A
+ sau khi đã đổi chỗ hai phần tử ở vị trí x và y
+=================================
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n ; 
+    cin >> n;
+    int a[n];
+    for (int i = 0 ; i < n ; i++) {
+        cin >> a[i];
+    }
+    
+    int x,y;
+    cin >> x >> y;
+    // vi tri x = 5 thì i = x - 1 = 5-1 =4 
+    // vi tri y = 3 thì i = 2
+    for (int i = 0 ; i < n ; i++) {
+        for (int j = 0; j < n ; j ++) {
+            if(i == x - 1 and j == y - 1 ) {
+                int t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+            }
+        }
+    }
+    
+    for(int i = 0 ; i < n; i++) {
+        cout << a[i] <<" ";
+    }
+}
+chèn số (chèn x vào vị trí y)<>
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    int a[n];
+    for(int i = 0 ; i < n ; i++) {
+        cin >> a[i];
+    }
+    
+    int x,y;
+    cin >> x >> y;
+    
+    // chèn x vào vị trí thứ y ( i = y - 1)
+    // chèn 5 vào vị trí thứ 3 ( i = 2)
+    
+    // DÙNG MẢNG PHỤ 
+    int len = n + 1;
+    int b[len];
+    
+    // tức là: từ 0 , 1 thì k bị làm sao ; tức là từ 0 đến vị trí trước khi trèn ( < (y -1))
+    for (int i = 0 ; i < y -1 ;i++ ) {
+        // copy y nguyên vào mảng phụ thôi 
+        b[i] = a[i];
+    }
+    // từ i = 2; 
+    // len + 1
+    // cái phần tử ở len - 1 chuyển sang len 
+    
+    // duyệt từ vị trí định chèn , 
+    //b[len] = a[len - 1]; 
+    //b[5] = a[4];
+    for (int i = y - 1 ; i < len ; i ++  ) {
+        b[i] = a[i - 1];
+    }
+    
+    // chèn x vào vị trí thứ y ( i = y -1) 
+    b[y-1] = x;
+    
+    // duyệt mảng phụ b 
+    for (int i = 0 ; i < len; i++) {
+        cout << b[i] << " ";
+    }
+    
+    
+    
+}
+xóa số<>
+#include<iostream>
+using namespace std;
+int main() {
+    int n ;
+    cin >> n;
+    int a[n];
+    for (int i = 0 ; i<n ; i++) {
+        cin >> a[i];
+    }
+    
+    int x;
+    cin >> x; 
+    //xóa phần tử ở vị trí thứ x ( i = x -1)
+    //xóa phần tử ở vị trí thứ 3 ( i  = 2)
+    
+    // MẢNG PHỤ len = n - 1
+    int len = n - 1;
+    int b[len];
+    
+    // từ 0 đến trước vị trí định xóa (x-1) thì mảng này copy y nguyên mảng a 
+    for (int i = 0 ; i < x-1 ; i++) {
+        b[i] = a[i];
+    }
+    
+    // từ vị trí định xóa (x-1) đến hết 
+    // cho b[2] = a[3]
+    // b[3] = a[4]
+    // b[i] = a[i+1]
+    
+    for (int i = x -1;  i< len ; i++) {
+        b[i] = a[i+1];
+    }
+    
+    // duyệt mảng b như bthuong 
+    for(int i = 0 ; i < len ; i++) {
+        cout << b[i] << " ";
+    }
+}
+tổng cực tiểu<>
+#include<iostream>
+#include<vector>
+using namespace std;
+int main() {
+    int n ; 
+    cin >> n;
+    int a[n];
+    for(int i = 0 ; i < n ; i++) {
+        cin >> a[i];
+    }
+    
+    vector<int> cucTieu;
+    if (a[0] < a[1]) { 
+        // a[0] là cực tiểu 
+        cucTieu.push_back(a[0]);
+    }
+    //cực tiểu là phần tử nhỏ hơn phần tử liền trước và phần tử liền sau nó.
+    // a[i+1] là cực tiểu khi
+    // a[i+1] < a[i]
+    // a[i+1] < a[i+2]
+    for (int i = 0 ; i< n; i++) {
+        if(a[i+1] < a[i] and a[i+1] < a[i+2]) {cucTieu.push_back(a[i+1]);}
+    }
+    
+    int len = cucTieu.size();
+    int sum = 0;
+    for (int i = 0 ; i < len ;i++) {
+        sum += cucTieu[i];
+        
+    }
+    cout << sum ;
+}
+tổng cực đại <>
+#include<iostream>
+#include<vector>
+using namespace std;
+int main() {
+    int n;
+    cin >> n;
+    int a[n];
+    for (int i = 0 ; i < n ; i++) {
+        cin >>a[i];
+    }
+    //cực đại là phần tử lớn hơn phần tử liền trước và phần tử liền sau nó.
+    vector<int>res;
+    
+    // so sánh phần tử đầu tiên và phần tử thứ 2
+    if (a[0] > a[1]) { // là cực đại thì push back vào vector 
+        res.push_back(a[0]);
+    }
+    
+    // chỉ dùng 1 vòng for và xét a[i+1]
+    for (int i = 0; i < n-2 ; i++) {
+        if(a[i+1] > a[i] and a[i+1] > a[i+2]) {
+            res.push_back(a[i+1]);
+        }
+    }
+    
+    int len = res.size();
+    int sum = 0 ;
+    for (int i = 0 ; i < len; i++) {
+        sum+=res[i];
+        
+    }
+    cout << sum;
+    
+}
+dãy số tích lũy <>
+#include<iostream>
+using namespace std;
+int main() {
+    int n;
+    cin >> n;
+    int a[n];
+    
+    for (int i =0; i <n;i++) {
+        cin>>a[i];
+    }
+    
+    // Dùng mảng phụ b[]
+    int b[n] ;
+    for (int i = 0 ; i < n ; i++) { b[i] = 0 ; }
+    
+    for (int i = 0 ; i < n ; i++) {
+        for (int j = 0 ; j <= i; j++) {
+            b[i] = b[i] + a[j];
+        }
+    }
+    
+    for(int i = 0 ; i < n ; i++) {
+        cout << b[i] << " ";
+    }
+}
+sắp xếp các phần tử nguyên tố /
+#include<iostream>
+using namespace std;
+
+int checkNguyenTo(int n) {
+    // 0 1 ko phai la nguyen to 
+    int check = 1;
+    if(n == 0 or n == 1) { check = 0;}
+    else {
+        for (int i = 2; i < n; i++) {
+            if(n%i == 0) {check = 0 ;}
+        }
+    }
+    if(check == 0) {return 0; } else {return 1;}
+}
+int main() {
+    int n;
+    cin >> n;
+    int a[n];
+    for(int i = 0 ; i < n; i++) {
+        cin >> a[i];
+    }
+    // sắp xếp các phần tử số nguyên tố trong mảng đó 
+    //theo thứ tự tăng dần 
+    //(giữ nguyên vị trí của các phần tử khác trong mảng).
+    
+    for (int i = 0 ; i< n ; i++) {
+        for(int j = i+1; j < n; j++) {
+            if (checkNguyenTo(a[i]) == 1 and checkNguyenTo(a[j]) == 1) {
+                if(a[i] > a[j]) {
+                    int t = a[i];
+                    a[i] = a[j];
+                    a[j] = t;
+                }
+            }
+        }
+    }
+    for (int i = 0 ; i < n;i++) {
+        cout << a[i] << " ";
+    }
+}
+sort các phần tử lẻ /
+#include<iostream>
+using namespace std;
+
+int checkLe(int n) {
+    if(n % 2 == 0) { // chẵn 
+        return 0;
+    } else { return 1; }// lẻ
+}
+
+int main() {
+    int n;
+    cin >> n;
+    int a[n];
+    for(int i = 0 ; i< n; i++) {
+        cin >> a[i];
+    }
+    
+    for (int i = 0 ;  i< n ; i++) {
+        for(int j = i+1 ;  j < n ; j++) {
+            if(checkLe(a[i]) == 1 and checkLe(a[j]) == 1) {
+                // tiến hành sắp xếp như thường thôi 
+                if (a[i] > a[j]) {
+                    int t = a[i];
+                    a[i] = a[j];
+                    a[j] = t;
+                }
+            }
+        }
+    }
+    for(int i = 0 ; i < n ; i++) {
+        cout << a[i] << " ";
+    }
+}
+Sắp xếp các phần tử ở vị trí chẵn
+#include<iostream>
+using namespace std;
+
+// hàm check chẵn 
+int checkChan(int n) {
+    if (n % 2 == 0) return 1;
+    else return 0;
+}
+int main() {
+    int n;
+    cin >> n;
+    
+    int a[n];
+    for (int i = 0 ; i < n; i++) {
+        cin >> a[i];
+    }
+    // kiểm tra 2 số a[i] và a[j]
+    //sắp xếp lại các phần tử có số thứ tự chẵn trong mảng theo chiều giảm dần,
+    // SỐ THỨ TỰ NHA CHỨ K PHẢI LÀ SỐ CHẴN 
+    // TỨC LÀ CHECK I , KO PHẢI CHECK a[i]
+    for (int i = 0  ; i < n ; i++) {
+        for(int j = i +1; j < n ; j++) {
+            if (checkChan(i) == 1 and checkChan(j) == 1) {
+                if(a[i] < a[j]) {
+                    int t = a[i]; 
+                    a[i] = a[j];
+                    a[j] = t;
+                }
+            }
+        }
+    }
+    
+    for (int i = 0 ; i< n ; i++) {
+        cout << a[i] << " ";
+    }
+}
+Sắp xếp chẵn lẻ
+#include<iostream>
+using namespace std;
+
+int checkChan(int n) {
+    if(n%2==0) {return 1;}
+    else return 0;
+}
+int main() {
+    int n;
+    cin >> n;
+    int a[n];
+    for(int i = 0 ; i < n ; i++) {
+        cin >> a[i];
+    }
+    
+    // đầu tiên là phải dồn chẵn về đầu mảng 
+    // lẻ về cuối mảng đã 
+    // chưa sắp xếp vội 
+    
+    for (int i = 0; i< n; i++) {
+        for (int j = i + 1; j < n ; j++) {
+            if(checkChan(a[i]) == 0 and checkChan(a[j]) == 1) {
+                // nếu a[0] lẻ và a[1] chẵn thì dồn a[1] lên đầu mảng
+                // tức là: trao đổi vị trí a[0] , a[1]
+                int t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+            }
+        }
+    }
+    //2 8 6 4 5 9 7
+    
+    // tiến hành sắp xếp 
+    // nếu chẵn 
+         //thì tăng dần ==> a[i] > a[j] thì đổi chỗ
+    // lẻ
+         //thì giảm dần ==> a[i] < a[j] thì đổi chỗ
+    for (int i = 0 ; i < n ; i++) {
+        for(int j = i+1; j<n ;j++) {
+            // nếu 2 số liền kề nhau chẵn 
+            if (checkChan(a[i]) == 1 and checkChan(a[j]) == 1) {
+                if (a[i] > a[j]) { 
+                    int t = a[i];
+                    a[i] = a[j];
+                    a[j] = t;
+                }
+            } 
+            
+            // nếu 2 số liền kề nhau lẻ
+            if (checkChan(a[i]) == 0 and checkChan(a[j]) == 0) {
+                if ( a[i] < a[j]) {
+                    int t = a[i];
+                    a[i] = a[j];
+                    a[j] = t;
+                }
+            }
+        }
+    }
+    for (int i = 0 ; i < n ; i++) {
+        cout << a[i] << " ";
+    }
+    
+}
+Sắp xếp âm dương /
+#include<iostream>
+using namespace std;
+
+int checkAm(int n) {
+    if (n <0) return 1;
+    else return 0;
+}
+int main() {
+    int n ; 
+    cin >> n ;
+    int a[n];
+    for (int i = 0 ; i < n; i++) {
+        cin >> a[i];
+    }
+    /*
+Thực hiện lần lượt các bước sắp xếp sau:
+
+sắp xếp lại thứ tự của các phần tử âm trong mảng đó theo chiều giảm dần (giữ nguyên vị trí các phần tử dương);
+sắp xếp lại thứ tự của các phần tử dương trong mảng đó theo chiều tăng dần (giữ nguyên vị trí các phần tử âm).
+*/
+
+    for (int i = 0 ; i < n ; i ++) {
+        for (int j = i + 1; j < n ; j++) {
+            // nếu 2 số liền kề âm 
+            if (checkAm(a[i]) == 1 and checkAm(a[j]) == 1) {
+                // sắp xếp phần tử âm giảm dần, dương k làm j 
+                
+                if (a[i] < a[j]) {
+                    int t = a[i];
+                    a[i] = a[j];
+                    a[j] = t;
+                }
+            }
+            
+            // nếu 2 số liền kề dương 
+            if (checkAm(a[i]) == 0 and checkAm(a[j]) == 0) {
+                // dương tăng dần, âm k làm j 
+                if (a[i] > a[j]) {
+                    int t = a[i];
+                    a[i] = a[j];
+                    a[j] = t;
+                }
+            }
+        }
+    }
+    for (int i = 0 ;i < n ; i++) { cout << a[i] <<" ";}
+}
+Số trung vị
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+int main() {
+    int n; 
+    cin >> n ; 
+    int a[n];
+    for(int i = 0 ; i < n; i++) {
+        cin >> a[i];
+    }
+    
+   // TÌM SỐ TRUNG VỊ 
+   // BƯỚC 1 sắp xếp dãy A theo thứ tự giảm dần hoặc tăng dần;
+   for (int i = 0 ; i < n; i++) {
+       for (int j = 0 ;  j < n ; j++) {
+           if (a[i] > a[j]) { int t = a[i]; a[i] = a[j]; a[j] = t; } 
+       }
+   }
+   //nếu số lượng phần tử của A là lẻ, số trung vị bằng số chính giữa dãy vừa sắp xếp,
+   if (n % 2!=0) {cout << setprecision(1) << fixed << (double) a[n/2];}
+   
+   //nếu số lượng phần tử của A là chẵn, số trung vị bằng trung bình cộng của hai số ở giữa dãy vừa sắp xếp.
+   // ví dụ n = 12 
+   // 12 / 2 = 6 
+   // 2 số ở giữa là a[6] và a[5]
+   // tổng quát lên: a[n/2] và a[n/2 - 1]
+   
+   else { // nếu số lượng là chẵn , tức là n chẵn 
+       double soGiua1 = (double) a[n/2];
+       double soGiua2 = (double) a[n/2 - 1];
+       double soTrungVi = (double) (soGiua1 + soGiua2) / 2;
+       cout << soTrungVi;
+   }
+}
+
+Mảng nhiều chiều
+chèn cột /
+#include<iostream>
+using namespace std;
+
+int main() {
+    int m , n;
+    cin >> m >> n ;
+    int a[m][n];
+    // m dòng n cột 
+    
+    for (int i = 0 ; i < m ; i ++) {
+        for (int j = 0 ;  j < n ; j++) {
+            cin >> a[i][j];
+        }
+    }
+    
+    int viTri ,x;
+    cin >> viTri >> x;
+    
+    // thêm cột vào vị trí thứ 3 ( i = 3 - 1) , giá trị là x 
+    // thêm cột vào vị trí thứ viTri ( i = viTri - 1)
+    int index = viTri - 1;
+    
+    // kiểu này phải dùng mảng 2 chiều phụ 
+    // dán mảng cũ vào mảng mới 
+    // chèn 1 cột 
+    // n cột + 1
+    // b[m][n+1]
+    
+    int dongMoi = m;
+    int cotMoi = n+1;
+    int b[dongMoi][cotMoi];
+    
+    // cho mảng b = 0 đã 
+    for (int i = 0 ;i< dongMoi;i++) {
+        for (int j = 0 ; j < cotMoi; j++) {
+            b[i][j] = 0 ;
+        }
+    }
+    
+    // tại cột i, gán x 
+    for (int i = 0; i < dongMoi; i++) { // m dòng 
+        for (int j = 0 ; j < cotMoi ; j++) {
+            if (j == index) {
+                b[i][j] = x;
+            }
+        }
+    }
+    
+    // dòng mới, j < index = (viTri - 1)
+    // vẫn giữ nguyên vị trí như ở mảng cũ 
+    for (int i = 0 ;  i < dongMoi; i++) {
+        for (int j = 0; j < index ; j++) {
+            b[i][j] = a[i][j];
+        }
+    }
+    
+    // dòng mới, j > viTri (tức là j = viTri + 1 --> cotMoi)
+    // giá trị cột 2 chuyển sang cột 3
+    // của cột 3 sang cột 4 
+    // a[i][j] = b[i][j+1]
+    // cần gán cho b[] nên:
+    // b[i][j] = a[i][j-1]
+    for (int i =  0; i < dongMoi; i++) {
+        for (int j = index + 1; j < cotMoi; j++) {
+            b[i][j] = a[i][j-1];
+        }
+    }
+    for (int i = 0 ; i < dongMoi; i++) {
+        for (int j = 0 ; j < cotMoi; j++) {
+            cout << b[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+Chèn hàng
+#include<iostream>
+using namespace std;
+int main() {
+    int m,n;
+    cin >> m >> n;
+    // m dòng n cột 
+    int a[m][n];
+    for (int i = 0 ; i < m ; i++) {
+        for (int j = 0 ; j < n; j++) {
+            cin >> a[i][j];
+        }
+    }
+    
+    int viTri, x;
+    cin >> viTri >> x;
+    // chèn hàng ở vị trí thứ i = x 
+    // vị trí thứ 3 có i = 3 - 1 = 2
+    int index = viTri - 1;
+    
+    // tạo mảng phụ b[]
+    // dòng mới = dòng cũ + 1 = m + 1
+    
+    int dongMoi = m + 1;
+    int cotMoi = n ; // vẫn = cột mảng a 
+    
+    int b[dongMoi][cotMoi];
+    // gán mảng = 0 ;
+    for (int i = 0 ; i<dongMoi;i++) {
+        for(int j = 0 ; j < cotMoi; j++) {
+            b[i][j]=0;
+        }
+    }
+    
+    // với những hàng có i < index 
+    // gán y nguyên mảng a vào mảng b 
+    for (int i = 0 ; i < index; i++) {
+        for (int j = 0 ; j < cotMoi; j++) {
+            b[i][j] = a[i][j];
+        }
+    } // tot roi!
+    
+    // với những hàng có i > index (i từ index+1 --> hết)
+    // mảng a: nó ở cột (i = 1), j ko đổi
+    // mảng b: nó ở cột (i = 2), j ko đổi
+    // tức là: a[i][j] = b[i+1][j]
+    // nhưng cần gán ở mảng b: 
+    // b[i][j] = a[i-1][j]
+    for (int i = index+1; i < dongMoi ;i++ ) {
+        for(int j = 0 ; j < cotMoi ; j++) {
+            b[i][j] = a[i-1][j];
+        }
+    }
+    // có thể làm trước 
+    //but nên cho bước này ở cuối (để tránh bị ghi đè)
+    // gán hàng ở cột có index = (viTri - 1) là x ( tại i == index thì b[i][j] = x)
+    for (int i = 0 ; i < dongMoi; i++) {
+        for (int j = 0 ; j < cotMoi; j++) {
+            if(i == index) { b[i][j] = x;}
+        }
+    }
+    
+    for(int i = 0 ; i < dongMoi; i++) {
+        for(int j = 0 ; j < cotMoi ; j++) {
+            cout << b[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+Đổi chỗ
+#include<iostream>
+using namespace std;
+int main() {
+    int m,n;
+    cin >> m >> n;
+    int a[m][n];
+    for (int i = 0 ; i < m ; i++) {
+        for(int j = 0 ; j < n; j++) {
+            cin >> a[i][j];
+        }
+    }
+    
+    //nhập vào 4 số nguyên i1,j1,i2,j2
+    //và tráo đổi giá trị của 2 phần tử ở vị trí (i1,j1) và (i2,j2)
+    
+    int i1,j1,i2,j2;
+    cin >> i1 >> j1 >> i2 >> j2;
+    // vị trí thứ 3 --> i = 3 - 1 = 2
+    // trên là vị trí thứ i1,j1, i2 , j2
+    
+    int indexI1 = i1 - 1;
+    int indexJ1 = j1 - 1;
+    int indexI2 = i2 - 1;
+    int indexJ2 = j2 - 1;
+    
+    for(int i = 0 ; i < m ; i++) {
+        for (int j = 0 ; j < n; j++) {
+            for (int k = i + 1; k < m; k++) {
+                for (int l = j+1; l < n; l++) {
+                    if(a[i][j] == a[indexI1][indexJ1] and a[k][l] == a[indexI2][indexJ2]) {
+                        int t = a[i][j];
+                        a[i][j] = a[k][l];
+                        a[k][l] = t;
+                    }
+                }
+            }
+        }
+    }
+    for (int i = 0 ; i<m;i++) {
+        for(int j = 0 ;j<n;j++) {
+            cout << a[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+Ma trận
+
+#include<iostream>
+using namespace std;
+int main() {
+    
+    // m dòng n cột
+    // int n,m,Q; // đọc kỹ đề để biết thứ tự nhập //vì đề là n dòng m cột mà mình là: m dòng n cột 
+    // cin >> n >> m >> Q; //nên làm theo đề như này sẽ lỗi 
+    int m , n , Q;
+    cin >> m >> n >> Q;
+    int a[m][n];
+    for(int i = 0 ; i < m ; i++) {
+        for(int j = 0 ; j < n ;j++) {
+            cin >> a[i][j];
+        }
+    }
+    //Q dòng tiếp theo 
+    while(Q>0) {
+        int i , j ; 
+        cin >> i>> j; 
+        // vị trí thứ 3 thì i = 3-1 =2 
+        // vị trí thứ i thì index = i - 1
+        int index = i - 1;
+        int jndex = j - 1;
+        cout << a[index][jndex] << endl;
+        Q--;
+    }
+    
+}
+Thay đổi giá trị
+#include<iostream>
+using namespace std;
+int main() {
+    int m,n;
+    cin >> m >> n;
+    
+    int a[m][n];
+    for(int i = 0 ; i < m ; i++) {
+        for(int j = 0 ; j< n; j++) {
+            cin >> a[i][j];
+        }
+    }
+    int i,j,x;
+    cin >> i >> j >> x;
+    // vị trí thứ i có index = i - 1 
+    int index = i - 1;
+    int jndex = j - 1;
+    
+    // gán luôn giá trị tại vị trí này = x
+    a[index][jndex] = x;
+    
+    for(int i = 0 ; i < m ; i++) {
+        for(int j = 0 ; j< n; j++) {
+            cout << a[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+Tổng trên hàng
+#include<iostream>
+using namespace std;
+
+int main() {
+    int m,n;
+    cin >> m>>n;
+    int a[m][n];
+    for(int i = 0 ; i < m ;i++) {
+        for(int j = 0 ; j <n;j++) {
+            cin >> a[i][j];
+        }
+    }
+    
+    for (int i = 0 ; i < m ; i++) {
+        int sum = 0; 
+        for (int j = 0 ; j <n; j++) {
+            sum += a[i][j];
+        }
+        cout << sum <<" ";
+    }
+}
+Xóa cột
+#include<iostream>
+using namespace std;
+
+int main() {
+    int m,n;
+    cin >> m >> n;
+    int a[m][n];
+    for(int i = 0 ; i < m; i++) {
+        for(int j = 0 ; j < n; j++) {
+            cin >> a[i][j];
+        }
+    }
+    int i ; 
+    cin >> i ;
+    // example: vị trí thứ 1 thì index = 1-1 = 0
+    // vị trí thứ i thì index = i - 1 
+    int index = i - 1;
+    // xóa cột thì dùng mảng mới là b[]
+    // mất cột ==> n - 1
+    int dongMoi = m; // ko thay đổi 
+    int cotMoi = n - 1;
+    
+    int b[dongMoi][cotMoi];
+    
+    // trước cột index = 0 thì k làm j , dòng i ko làm j
+    // j < index thì copy mảng vào mảng b
+    for (int i = 0 ; i < dongMoi ; i++) {
+        for(int j = 0 ; j < index; j++) {
+            b[i][j] = a[i][j];
+        }
+    }
+    
+    // từ cột > index, nghĩa là:j = index(= i - 1) đến hết ; dòng i ko làm j
+    // mảng a: cột (i=1) --> mảng b; cột (i=0)
+    // a[i][j] = b[i][j-1]
+    // b[i][j] = a[i][j+1]
+    // CHÚ Ý: là j = index chứ k phải là j = index + 1
+    for(int i = 0; i < dongMoi ; i++) {
+        for(int j = index ; j < cotMoi ; j++){
+            b[i][j] = a[i][j+1];
+        }
+    }
+    
+    for(int i =0;i<dongMoi;i++){
+        for(int j=0;j<cotMoi;j++){
+            cout<<b[i][j]<<" ";
+        }
+        cout << endl;
+    }
+}
+Xóa hàng
+#include<iostream>
+using namespace std;
+
+int main() {
+    int m,n;
+    cin >> m>>n;
+    int a[m][n];
+    for(int i=0 ;i<m;i++){
+        for(int j =0;j<n;j++){
+            cin>>a[i][j];
+        }
+    }
+    int i ;
+    cin >> i;
+    // vị trí thứ i thì index = i - 1
+    int index = i - 1;
+    
+    // xóa hàng = dùng mảng mới 
+    // hàng mới = hàng cũ - 1
+    int dongMoi = m - 1;
+    int cotMoi = n ;
+    int b[dongMoi][cotMoi];
+    
+    // all dòng có i < index thì copy y nguyên mảng a vào mảng b
+    for(int i = 0;i < index ;i++) {
+        for(int j = 0 ; j < cotMoi ; j++) {
+            b[i][j] = a[i][j];
+        }
+    }
+    // all dòng có i >= index (i = index --> hết) thì 
+    //ex: mảng a: cột i = 2, mảng b: cột i = 1
+    // a[i][j] = b[i-1][j];
+    //= b[i][j] = a[i+1][j];
+    for(int i = index ; i < dongMoi ; i++) {
+        for(int j = 0 ; j < cotMoi ; j++) {
+            b[i][j] = a[i+1][j];
+        }
+    }
+    
+    for(int i = 0 ; i < dongMoi; i++) {
+        for(int j = 0 ; j < cotMoi ; j++) {
+            cout << b[i][j] <<" ";
+        }
+        cout << endl;
+    }
+}
+xâu ký tự
+So sánh xâu
+#include<iostream>
+using namespace std;
+int main() {
+    string s1,s2; 
+    cin >> s1 >> s2;
+    int len1 = s1.size();
+    int len2 = s2.size();
+    if(len1!=len2) {cout <<"no";}
+    else {
+        if (s1 == s2) { cout <<"yes";}
+        else cout << "no";
+    }
+}
+Hai từ
+#include<iostream>
+using namespace std;
+int main() {
+    string a,b;
+    cin >> a>>b;
+    cout << a<<"," <<b;
+}
+Chèn ký tự
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+
+int main() {
+    string s;
+    cin >> s;
+    
+    
+    int  viTri ;
+    char c;
+    cin >> viTri >> c;
+    
+    // vị trí thứ i ===> index = i - 1
+    int index = viTri; // ví dụ dề bài: i = 3 là a thì s[3] = a (index = viTri = 3) 
+    // ko can viTri - 1;
+    
+    int len = s.size();
+    
+    string res = "";
+    // chia xâu mới thành 3 phần 
+    // phần đầu: các i < index thì copy y nguyên xâu s vào (= for{ res += s[i] })
+    
+    for (int i = 0 ; i < index; i++) {
+        res += s[i];
+    }
+    // phần 2: thêm ký tự c vào string res
+    res += c;
+    
+    // phần 3: phần còn lại của s nhét vào res
+    for(int i = index; i < len; i++) {
+        res += s[i];
+    }
+    cout << res;
+    
+    return 0;
+    
+}
+Đổi chỗ ký tự
+#include<iostream>
+using namespace std;
+
+
+int main() {
+    string s;
+    cin >> s;
+    
+    int i , j ; 
+    cin >> i >> j ; // ko cần tính index = vitri - 1
+    
+    char c = s[i];
+    s[i] = s[j];
+    s[j] = c;
+    
+    cout << s;
+}
+Thay đổi ký tự
+#include<iostream>
+using namespace std;
+
+
+int main() {
+    string s;
+    cin >> s;
+    int i; 
+    char c;
+    cin >> i >> c;
+    
+    // thay đổi ký tự thứ i của S bằng ký tự c. 
+    s[i] = c;
+    cout << s;
+}
+Xóa ký tự
+#include<iostream>
+using namespace std;
+
+
+int main() {
+    string s;
+    cin >> s;
+    
+    // chu y: số 3 là s[3]
+    int index ;
+    cin >> index ;
+    
+    int len = s.size();
+    
+    // xóa thì DÙNG X U PHỤ có độ dài sau khi xóa là len mới = len cũ - 1, nhưng vì k thêm s[index] vào res nên độ dài 
+    // nó là len - 1 sẵn rồi
+    string res = "";
+    
+    // trc index thì vẫn giữ nguyên string đầu vào 
+    
+    for (int i = 0 ; i < index ; i++) {
+        res += s[i];
+    }
+    
+    // ko cho res + s[index] là đã xóa s[index] rồi
+    
+    for (int i = (index +1); i < len ; i++) {
+        res += s[i];
+    }
+    
+    cout << res; // để ý cout res chứ k phải cout s 
+}
+Đảo ngược xâu
+#include<iostream>
+using namespace std;
+
+
+int main() {
+    string s;
+    cin >> s;
+    // đảo ngược xâu 
+    // dùng string mới, string res 
+    // for ngược s và thêm vào res
+    int len = s.size();
+    string res = "";
+    for(int i = len - 1; i >= 0; i--) {
+        res += s[i];
+    }
+    cout << res;
+}
+
+
+
+
+Đảo từ: bo an co ⇒ co an bo
+#include<iostream>
+#include<vector>
+#include<sstream>
+using namespace std;
+
+
+int main() {
+    string s;
+    getline(cin, s);
+    
+    stringstream ss(s);
+    string word;
+    vector<string>v;
+    while(ss >> word) {
+        v.push_back(word);
+    }
+    
+    int len = v.size();
+    for(int i = len - 1; i >=0 ; i--) {
+        cout << v[i] <<" ";
+    }
+    
+}
+Xâu con
+#include<iostream>
+using namespace std;
+
+
+// xâu con = sắp xếp 2 xâu , xét len min, nếu = nhau (dùng cờ + for check) thì là xâu con 
+
+
+int main() {
+    string s1,s2;
+    cin >> s1 >> s2;
+    
+    
+    // kiểm tra s1 có là xâu con của s2 
+    if(s2.find(s1) == string::npos){
+        cout << "NO";
+    } else { cout <<"YES";}
+}
+
+
+biến đổi xâu 
+
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+bool bienDoi(string a, string b) {
+    int lena =a.size();
+    int lenb = b.size();
+    
+    string copyB = b;
+    
+    
+    bool checkA[lena];
+    bool checkB[lenb];
+
+    for (int i = 0 ; i < lena; i++) {checkA[i] = 0 ; }
+    for(int i = 0 ; i < lenb ; i++) {checkB[i] = 1;}
+    // so sanh daBcd va ABC có chữ Hoa nào = nhau thì đặt check[i] = 1
+    for (int i = 0 ; i < lena; i++) {
+        for (int j = 0 ; j < lenb; j++) {
+            if (a[i] == copyB[j] and checkA[i] == 0 and checkB[j] == 1  ) {
+                checkA[i] =1; 
+                checkB[j] = 0; //chỉ số j mới duyệt xâu b, để i là sai
+            }
+            
+        }
+    }
+    
+    //cho copyB tu HOA thanh thuong 
+    for (int i = 0 ; i < lenb; i++) {
+        if (copyB[i] >= 'A' and copyB[i] <= 'Z') {
+            copyB[i] += 32;
+        }
+    }
+    
+    for (int i = 0 ; i < lena; i++) {
+        for (int j = 0 ; j < lenb; j++) {
+            if (a[i] == copyB[j] and checkA[i] == 0 and checkB[j] == 1) {
+                checkA[i] = 1;
+                checkB[j] = 0; // chỉ số j mới duyệt xâu b, để i là sai 
+            }
+            
+        }
+    }
+    //=======================================
+    // xoa nhung a[i] co check[i] = 0 
+    // = cach += vao string moi
+    string resA ;
+    for (int i = 0 ; i < lena; i++) {
+        if(checkA[i] == 1 or (a[i] >= 'A' and a[i] <= 'Z')) {
+            resA += a[i]; //daBcd ==> aBc
+        }
+    }
+    
+    // neu chu Thuong doi thanh Hoa 
+    int lenResA = resA.size();
+    for (int i = 0 ; i < lenResA; i++) {
+        if (resA[i] >= 'a' and resA[i] <= 'z') { resA[i] -= 32;}
+    }
+    
+    //========================================
+    // có cách biến đổi từ xâu a sang xâu b
+    // ==> a phải == b 
+    if (resA != b) {return 0;}
+    else {return 1;}
+    
+    
+    
+    
+}
+
+int main() {
+    int Q;
+    cin >> Q;
+    while (Q--) {
+        string a, b;
+        cin >> a >> b;
+
+        if (bienDoi(a, b) == 1 ) { // co the bien doi 
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
+    }
+    return 0;
+}
+
+
+
+
